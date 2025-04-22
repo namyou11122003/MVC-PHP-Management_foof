@@ -1,0 +1,79 @@
+[
+    {
+        "product_id": "1",
+        "product_name": "\u1791\u17b9\u1780\u1780\u17d2\u179a\u17bc\u1785\u1786\u17d2\u1798\u17b6",
+        "product_price": "6000",
+        "product_image": "68038bf4c3279.jpg",
+        "category": "Drinks"
+    },
+    {
+        "product_id": "2",
+        "product_name": "\u179f\u17ca\u17bb\u1794\u1794\u17d2\u179a\u17a0\u17b7\u178f",
+        "product_price": "10000",
+        "product_image": "680391b23c5ff.jpg",
+        "category": "Soup"
+    },
+    {
+        "product_id": "3",
+        "product_name": "PEPPRONI PIZZA",
+        "product_price": "40000",
+        "product_image": "6803941c18ff8.png",
+        "category": "Food"
+    },
+    {
+        "product_id": "4",
+        "product_name": "SEAFOOD",
+        "product_price": "30000",
+        "product_image": "6803945ab3bb9.jpg",
+        "category": "SeaFood"
+    },
+    {
+        "product_id": "5",
+        "product_name": "\u179f\u17ca\u17bb\u1794\u1786\u17d2\u17a2\u17b9\u1784\u1782\u17c4",
+        "product_price": "5000",
+        "product_image": "680394d731f78.jpg",
+        "category": "Soup"
+    },
+    {
+        "product_id": "6",
+        "product_name": "\u179f\u17b6\u17c6\u1784\u179c\u17b7\u1785",
+        "product_price": "3000",
+        "product_image": "680395fa96fc7.jpg",
+        "category": "Food"
+    },
+    {
+        "product_id": "7",
+        "product_name": "\u179f\u1798\u17d2\u179b\u1794\u17d2\u179a\u17a0\u17be\u179a",
+        "product_price": "10000",
+        "product_image": "68039636e2ef8.jpg",
+        "category": "Food"
+    },
+    {
+        "product_id": "8",
+        "product_name": "\u178f\u17d2\u179a\u17b8\u1786\u17d2\u179b\u17bc\u1789\u17a2\u17b6\u17c6\u1784",
+        "product_price": "20000",
+        "product_image": "6803968370adb.jpg",
+        "category": "Food"
+    },
+    {
+        "product_id": "9",
+        "product_name": "\u1789\u17bb\u17b6\u17c6\u179f\u17d2\u178f\u17c5",
+        "product_price": "20000",
+        "product_image": "680396abc02a3.jpg",
+        "category": "Food"
+    },
+    {
+        "product_id": "10",
+        "product_name": "\u1786\u17b6\u179f\u17b6\u1785\u17cb\u1782\u17c4",
+        "product_price": "10000",
+        "product_image": "680396ce11676.jpg",
+        "category": "Food"
+    },
+    {
+        "product_id": "14",
+        "product_name": "Coffee",
+        "product_price": "10000",
+        "product_image": "6805aa66328df.webp",
+        "category": "Drinks"
+    }
+]

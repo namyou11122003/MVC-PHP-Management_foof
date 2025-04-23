@@ -1,5 +1,4 @@
 const container = document.querySelector(".container-card");
-
 document.addEventListener("DOMContentLoaded", () => {
   fetching();
 });
@@ -82,3 +81,4 @@ function searchfilter(data) {
     displayProduct(filterArray);
   });
 }
+

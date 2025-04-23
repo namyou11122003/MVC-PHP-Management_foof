@@ -123,6 +123,41 @@
             background-color: rgba(39, 230, 255, 0.9);
             box-shadow: 0 0 15px 0px rgb(235, 235, 235);
         }
+
+        .store-item {
+            width: 30%;
+            height: 100%;
+            overflow: scroll;
+            position: fixed;
+            top: 0;
+            right: -30%;
+            background-color: white;
+            z-index: 1000;
+            transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+        }
+
+        .store-item.add {
+            right: 0;
+        }
+
+        .card-footer {
+            /* position: fixed; */
+            position: absolute;
+            bottom: 10px;
+            right: 0;
+            width: 100%;
+            padding: 0 1.3rem;
+        }
+
+        .card-body {
+            padding: 10px;
+        }
+
+        .card-body>.items>img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+        }
     </style>
 </head>
 
@@ -135,7 +170,7 @@
         </div>
     </div>
     <!-- Main Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top z-2">
         <div class="container">
             <!-- Logo -->
             <a class="navbar-brand d-flex align-items-center" href="#">
@@ -183,13 +218,18 @@
                     <!-- User Account -->
                     <a href="./login.php" class="nav-action-btn"> <i class="bi bi-person"></i>
                     </a>
-                    <div class="m-2 ">
-                        <i class="bi bi-cart4 card"></i>
-                    </div>
+                    <!-- add to card  -->
+                    <button class="btn  nav-action-btn" type="button">
+                        <i class="bi bi-cart3 icon-add"></i>
+                        <span id="cartCount" class="badge bg-danger cart-badge">0</span>
+                    </button>
+
+                    <!-- end add to card  -->
                 </div>
             </div>
         </div>
     </nav>
+    <!-- container card  -->
     <div class="container py-5">
         <div class="btn-container">
             <button class="btn-category">All</button>
@@ -211,6 +251,33 @@
             </div> -->
         </div>
     </div>
+    <div class="store-item">
+        <div class="card-header p-1">
+            <h3 class="text-center">Your Card</h3>
+        </div>
+        <hr>
+        <div class="card-body">
+            <div class="items d-flex align-items-center justify-content-between">
+                <img src="./promo-3.png" alt="">
+                <p>prommotion</p>
+                <p>$33</p>
+                <button class="btn btn-danger btn-sm"> <i class="bi bi-trash icon-remove"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-footer d-flex flex-column justify-content-between ">
+
+            <div class="payment">
+                <h5 class="">Total : $<span>15</span></h5>
+            </div>
+            <div class="d-flex justify-content-between align-items-center w-100">
+                <button class="btn btn-danger    btn-md">Close</button>
+                <button class="btn btn-warning btn-md">Checkout</button>
+            </div>
+        </div>
+
+    </div>
+    <!-- start footer  -->
     <div class="container-footer">
         <!-- Main Content Section -->
         <div class="content-section">
@@ -276,7 +343,17 @@
         <!-- Copyright -->
         <div class="copyright">©2025 coding with Group 1 All Rights Reserved</div>
     </div>
+    <!-- end footer -->
     <script src="./script.js">
+    </script>
+    <script>
+        const card = document.querySelector(".icon-add");
+        const storeItem = document.querySelector(".store-item");
+        card.addEventListener("click", () => {
+            storeItem.classList.toggle('add');
+        })
+
+
     </script>
 </body>
 

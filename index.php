@@ -1,3 +1,30 @@
+<?php
+$host = "localhost";
+$user = "root";
+$password = "";
+$dbname = "mangement_food";
+
+$conn = new mysqli($host, $user, $password, $dbname);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$sql = "SELECT * FROM product";
+$result = $conn->query($sql);
+$data = [];
+if ($result->num_rows > 0) {
+    // Step 3: Convert to array
+    while ($row = $result->fetch_assoc()) {
+        $data[] = $row;
+    }
+    // Step 4: Convert to JSON
+    $jsonData = json_encode($data, JSON_PRETTY_PRINT);
+    // Step 5: Write to JSON file
+    file_put_contents('products.json', $jsonData);
+} else {
+    echo "No data found.";
+} ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,23 +43,137 @@
     <style>
         :root {
             /* font-size: 62.5%; */
-            --primary-color: #3fa958;
-            --secondary-color: #6b9161;
-            --accent-color: #d8d4ce;
-            --text-color: #ffffff;
-
-            --round-radius: 100px;
-            --lg-radius: 25px;
-            --md-radius: 15px;
-            --sm-radius: 10px;
-
-            --text-normal: 1.8rem;
-            --text-lg: 5rem;
-            --text-mdlg: 3.5rem;
-            --text-md: 2.3rem;
-            --text-sm: 1.5rem;
+            --primary-color: rgb(77, 204, 106);
+            --secondary-color: rgb(58, 175, 25);
         }
 
+        /* start banner  */
+        .hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3),
+                    rgba(0, 0, 0, 0.3)),
+                url("./promo-3.png");
+            background-size: cover;
+            background-position: center;
+            height: 300px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3),
+                    rgba(0, 0, 0, 0.3)),
+                url("./image copy.png");
+            background-size: cover;
+            background-position: center;
+            height: 300px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .hero-content h2 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .btn-green {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .btn-green:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* end of banner  */
+        /* menu plural  */
+        .menu-modern {
+            padding: 3rem;
+            display: grid;
+            justify-content: center;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 350px));
+        }
+
+        .promot {
+            color: black;
+            font-size: 2rem;
+            z-index: 2;
+        }
+
+        .txt {
+            margin-top: 1rem;
+            z-index: 2;
+            color: grey;
+            font-size: 1rem;
+        }
+
+        .food-modern {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 0 2rem;
+            width: 300px;
+            height: 500px;
+            box-shadow: 1px 1px 1px 1px rgb(185, 182, 182);
+            position: relative;
+        }
+
+        .image {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            z-index: 2;
+            margin-top: 2rem;
+        }
+
+        .image>img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .food-modern::after {
+            content: "";
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            z-index: 0;
+            background-color: rgb(236, 154, 12);
+            clip-path: polygon(0 85%, 100% 55%, 100% 100%, 0% 100%);
+            transition: clip-path 0.2s ease-in-out;
+        }
+
+        .food-modern:hover::after {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+        }
+
+        .food-modern:hover>.promot,
+        .food-modern:hover>p {
+            color: white;
+        }
+
+        /* end of menu plural  */
         .menu-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             height: 100%;
@@ -113,50 +254,15 @@
             background-color: transparent;
             background-color: rgba(255, 255, 255, 0.5);
             padding: 0.5rem 2rem;
-            border-radius: var(--round-radius);
+            border-radius: 10px;
             color: black;
             font-size: 1rem;
             cursor: pointer;
         }
 
         .btn-container>button:focus {
-            background-color: rgba(39, 230, 255, 0.9);
+            background-color: var(--primary-color);
             box-shadow: 0 0 15px 0px rgb(235, 235, 235);
-        }
-
-        .store-item {
-            width: 30%;
-            height: 100%;
-            overflow: scroll;
-            position: fixed;
-            top: 0;
-            right: -30%;
-            background-color: white;
-            z-index: 1000;
-            transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
-        }
-
-        .store-item.add {
-            right: 0;
-        }
-
-        .card-footer {
-            /* position: fixed; */
-            position: absolute;
-            bottom: 10px;
-            right: 0;
-            width: 100%;
-            padding: 0 1.3rem;
-        }
-
-        .card-body {
-            padding: 10px;
-        }
-
-        .card-body>.items>img {
-            width: 50px;
-            height: 50px;
-            object-fit: cover;
         }
     </style>
 </head>
@@ -170,7 +276,7 @@
         </div>
     </div>
     <!-- Main Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light sticky-top z-2">
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top z-10">
         <div class="container">
             <!-- Logo -->
             <a class="navbar-brand d-flex align-items-center" href="#">
@@ -219,9 +325,10 @@
                     <a href="./login.php" class="nav-action-btn"> <i class="bi bi-person"></i>
                     </a>
                     <!-- add to card  -->
-                    <button class="btn  nav-action-btn" type="button">
-                        <i class="bi bi-cart3 icon-add"></i>
-                        <span id="cartCount" class="badge bg-danger cart-badge">0</span>
+                    <button class="btn  nav-action-btn icon-add" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                        <i class="bi bi-cart3 "></i>
+                        <span id="cartCount" class="badge bg-danger cart-badge number-cart">0</span>
                     </button>
 
                     <!-- end add to card  -->
@@ -229,8 +336,56 @@
             </div>
         </div>
     </nav>
+    <!-- banner  -->
+    <section class="hero container mt-3 ">
+        <div class="hero-content">
+            <h2>Fresh Produce Delivered to Your Door</h2>
+            <p>Farm-fresh vegetables and fruits with same-day delivery</p>
+            <button class="btn-green">Shop Now</button>
+        </div>
+    </section>
+    <!-- end of banner  -->
+    <!-- menu plural -->
     <!-- container card  -->
-    <div class="container py-5">
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title  " id="offcanvasRightLabel">Your Card</h5>
+            <hr>
+        </div>
+        <div class="offcanvas-body d-flex flex-column justify-content-between ">
+            <div class="offcanvas-content  " id="cardItem">
+                <div class="card-item d-flex justify-content-between align-items-center mb-3">
+                    <!-- <img src="./promo-3.png" alt="Product Image" class="img-fluid" style="width: 50px; height: 50px;">
+                    <div class="product-details d-flex gap-5 alight-items-center mt-3">
+                        <p class="product-name tex">coca</->
+                        <p class="product-price">$10.50</p>
+                    </div>
+                    <div class="quantity d-flex align-items-center gap-2">
+                        <button class="btn btn-secondary btn-sm" id="btn-decrease">
+                            < </button>
+                                <span class="quantity-value">1</span>
+                                <button class="btn btn-secondary btn-sm" id="btn-increase">></button>
+                                <button class="btn btn-danger remove-btn btn-sm" id="btn-remove">Remove</button>
+                    </div> -->
+                </div>
+
+            </div>
+            <div class="offcanvas-footer ">
+                <h5 class="total-price" id="total">Total: ៛ <strong id="totalPayment">0</strong> </h5>
+                <div class="d-flex justify-content-between align-items-center">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="offcanvas"
+                        aria-label="Close">Close</button>
+
+                    <button class="btn btn-primary checkout-btn" id="btncheckout"><a
+                            class="text-decoration-none text-light" href="">Checkout</a></button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container py-2">
         <div class="btn-container">
             <button class="btn-category">All</button>
         </div>
@@ -242,145 +397,79 @@
                         <h5 class="card-title">Breakfast Burrito</h5>
                         <p class="price mb-1">$10.50</p>
                         <span class="category-badge mb-3">Breakfast</span>
-                        <button class="btn add-to-cart-btn text-white mt-auto w-100"
-                            onclick="addToCart('Breakfast Burrito', 10.50)">
+                        <button class="btn add-to-cart-btn text-white mt-auto w-100">
                             Add to Cart
-                        </button>
-                    </div>
-                </div>
-            </div> -->
+                        </button> -->
+
         </div>
     </div>
-    <div class="store-item">
-        <div class="card-header p-1">
-            <h3 class="text-center">Your Card</h3>
-        </div>
-        <hr>
-        <div class="card-body">
-            <div class="items d-flex align-items-center justify-content-between">
-                <img src="./promo-3.png" alt="">
-                <p>prommotion</p>
-                <p>$33</p>
-                <button class="btn btn-danger btn-sm"> <i class="bi bi-trash icon-remove"></i>
-                </button>
-            </div>
-        </div>
-        <div class="card-footer d-flex flex-column justify-content-between ">
-
-            <div class="payment">
-                <h5 class="">Total : $<span>15</span></h5>
-            </div>
-            <div class="d-flex justify-content-between align-items-center w-100">
-                <button class="btn btn-danger    btn-md">Close</button>
-                <button class="btn btn-warning btn-md">Checkout</button>
-            </div>
-        </div>
-
+    <div class="hero-section ">
+        <h3 class="text-center">Menu Popular</h3>
+        <section class="menu-modern"></section>
     </div>
+    </div>
+    </div>
+    </div>
+
     <!-- start footer  -->
-    <div class="container-footer">
+    <!-- Responsive Footer Markup -->
+    <div class="container-footer py-4" style="background-color: #f8f9fa;">
         <!-- Main Content Section -->
-        <div class="content-section">
+        <div class="content-section d-flex flex-wrap justify-content-between align-items-start mb-4">
             <!-- Left Section - Logo and About -->
-            <div class="left-section">
-                <!-- <div class="logo">Foodie<span>.</span></div> -->
-                <!-- <p class="description">
-                    Financial experts support or help you to to find out which way you
-                    can raise your funds more.
-                </p> -->
-
+            <div class="left-section mb-3" style="flex: 1 1 300px;">
+                <!-- Add your logo or about content here -->
+                <h3 class="section-title">About Us</h3>
+                <p>We deliver fresh produce right to your doorstep. Learn more about our story and what makes us
+                    special.</p>
             </div>
 
             <!-- Middle Section - Contact Info -->
-            <div class="middle-section">
+            <div class="middle-section mb-3" style="flex: 1 1 300px;">
                 <h3 class="section-title">Contact Info</h3>
                 <p class="contact-info">0964563693</p>
                 <p class="contact-info">namyou854@gmail.com</p>
-                <p class="contact-info">st 1982 sensok , PP</p>
+                <p class="contact-info">st 1982 Sensok, PP</p>
                 <div class="social-icons">
-                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon me-2"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon me-2"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon me-2"><i class="fab fa-instagram"></i></a>
                     <a href="#" class="social-icon"><i class="fab fa-pinterest"></i></a>
                 </div>
             </div>
 
             <!-- Right Section - Opening Hours -->
-            <div class="right-section">
+            <div class="right-section mb-3" style="flex: 1 1 300px;">
                 <h3 class="section-title">Opening Hours</h3>
-                <p class="hours-info">Monday-Friday: 08:00-22:00</p>
-                <p class="hours-info">Tuesday 4PM: Till Mid Night</p>
-                <p class="hours-info">Saturday: 10:00-16:00</p>
+                <p>Monday - Friday: 08:00 - 22:00</p>
+                <p>Saturday: 10:00 - 16:00</p>
             </div>
         </div>
 
         <!-- Booking Form -->
-        <form class="booking-form" method="post">
-            <h3 class="form-title">Book a Table</h3>
-            <div class="form-row">
-                <input type="text" class="form-control" required placeholder="Your Name" name="customer_booking" />
-                <input type="email" class="form-control" required placeholder="Email" name="email_customer" />
-            </div>
-            <div class="form-row">
-                <select class="form-control" required name="person">
-                    <option>Person</option>
-                    <option>1 Person</option>
-                    <option>2 Persons</option>
-                    <option>3 Persons</option>
-                    <option>4 Persons</option>
-                </select>
-                <input type="date" class="form-control" name="date" />
-            </div>
-            <div class="form-row">
-                <textarea class="form-control" required placeholder="Message" name="message"></textarea>
-            </div>
-            <button class="btn-book" type="submit" name="booking_table">Book a Table</button>
-        </form>
-        <div class="delivery">
-            <img src="./delivery-boy.svg" alt="delivery" />
+
+        <!-- Delivery Image -->
+        <div class="delivery text-center mb-3">
+            <img src="./delivery-boy.svg" alt="delivery" class="img-fluid" style="max-width: 200px;">
         </div>
 
         <!-- Copyright -->
-        <div class="copyright">©2025 coding with Group 1 All Rights Reserved</div>
+        <div class="copyright text-center">
+            ©2025 Coding with Group 1. All Rights Reserved.
+        </div>
     </div>
+
     <!-- end footer -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./script.js">
     </script>
-    <script>
-        const card = document.querySelector(".icon-add");
-        const storeItem = document.querySelector(".store-item");
-        card.addEventListener("click", () => {
-            storeItem.classList.toggle('add');
-        })
 
-
-    </script>
 </body>
 
 </html>
-<?php
-$host = "localhost";
-$user = "root";
-$password = "";
-$dbname = "mangement_food";
 
-$conn = new mysqli($host, $user, $password, $dbname);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
 
-$sql = "SELECT * FROM product";
-$result = $conn->query($sql);
-$data = [];
-if ($result->num_rows > 0) {
-    // Step 3: Convert to array
-    while ($row = $result->fetch_assoc()) {
-        $data[] = $row;
-    }
-    // Step 4: Convert to JSON
-    $jsonData = json_encode($data, JSON_PRETTY_PRINT);
-    // Step 5: Write to JSON file
-    file_put_contents('products.json', $jsonData);
-} else {
-    echo "No data found.";
-} ?>
+<script>
+
+</script>

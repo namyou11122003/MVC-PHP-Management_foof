@@ -36,14 +36,14 @@ if (isset($_GET['id'])) {
                     value="<?php echo isset($employee['Emp_Role']) ? $employee['Emp_Role'] : ''; ?>" required>
 
                 <label for="emp_password">Password</label>
-                <input type="password" class="form-control" required id="emp_password" name="Emp_password"
+                <input type="password" class="form-control" required id="emp_password" name="Emp_password" 
                     value="<?php echo isset($employee['Emp_password']) ? $employee['Emp_password'] : ''; ?>">
                 <label for="`emp_image`">Photo Employee</label>
                 <input type="file" class="form-control" id="imagePreview" width="100px" height="100px" name="emp_image"
                     required value="<?php echo isset($employee['emp_image']) ? $employee['emp_image'] : ''; ?>">
                 <br>
-                <img id="imagePreview" src="#" alt="Image Preview" style="display:none; max-width: 200px;" />
-
+                <img id="currentImage" src="./images/<?php echo $employee['emp_image']; ?>" alt="Current Image"
+                    style="max-width: 200px;" />
                 <div class="modal-footer mt-3">
                     <button type="reset" class="btn btn-secondary m-2">
                         <a href="../admin/employee.php" style="color: white; text-decoration: none;">Cancel</a>

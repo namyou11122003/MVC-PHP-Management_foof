@@ -1,123 +1,195 @@
+<?php
+session_start();
+include './handle/Checkinput.php';
+
+// Create a new mysqli connection
+$connection = new mysqli('localhost', 'root', '', 'mangement_food');
+
+// Check connection
+if ($connection->connect_error) {
+    die("Connection failed: " . $connection->connect_error);
+}
+
+if (isset($_POST['gmail']) && isset($_POST['password'])) {
+    $gmail = $_POST['gmail'];
+    // Clean up user input (assuming checkinput() does necessary sanitation)
+    $password = checkinput($_POST['password']);
+
+    // Use a prepared statement and select the user by email only
+    $stmt = $connection->prepare("SELECT * FROM employee WHERE Emp_gmail = ?");
+    $stmt->bind_param("s", $gmail);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result && $result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        // Verify the password from input against the hash stored in the database
+        if (password_verify($password, $row['Emp_password'])) {
+            $_SESSION['gmail'] = $row['Emp_gmail'];
+            header('Location: ./views/admin/index.php');
+            exit();
+        } else {
+            echo "<script>alert('Incorrect password!');</script>";
+        }
+    } else {
+        header("location: ./login.php");
+        echo "<script>alert('Email not found!');</script>";
+    }
+
+    $stmt->close();
+}
+
+$connection->close();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Login Form</title>
-    <link rel="stylesheet" href="./assets/css/login.css">
-</head>
-<?php
-session_start();
-$con = mysqli_connect('localhost', 'root', '', 'mangement_food');
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['gmail']) && isset($_POST['password'])) {
-        $gmail = $_POST['gmail'];
-        $password = $_POST['password'];
-
-        // Use prepared statement to prevent SQL injection
-        $stmt = $con->prepare("SELECT * FROM Employee WHERE Emp_gmail = ?");
-        $stmt->bind_param("s", $gmail);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result && $result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-
-            // Verify password using password_verify()
-            if (password_verify($password, $row['Emp_password'])) {
-                $_SESSION['gmail'] = $row['Emp_gmail'];
-                
-                header('Location: ./views/admin/index.php');
-                exit();
-            } else {
-                echo "<script>alert('Incorrect password!');</script>";
-            }
-        } else {
-            echo "<script>alert('Email not found!');</script>";
+    <title>Restaurant Account Portal</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-    }
-}
-?>
 
 
-<body>
-    <div class="container floating">
-        <div class="header">
-            <h2>Welcome Back</h2>
-            <p>Sign in to continue</p>
+        .auth-container {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            color: white;
+            border-radius: 10px 10px 0 0 !important;
+            padding: 1.25rem;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .form-control:focus {
+            border-color: #dc3545;
+            box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+        }
+
+        @media (max-width: 767.98px) {
+            #registerForm {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-dark d-flex justify-content-center align-items-center h-100">
+
+
+    <!-- Login & Registration Forms -->
+    <div class="container auth-container">
+        <div class="row justify-content-center">
+            <!-- Toggle buttons for mobile -->
+            <div class="col-12 d-md-none mb-4 text-center">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-outline-danger active" id="mobileLoginBtn">Login</button>
+                    <button type="button" class="btn btn-outline-danger" id="mobileRegisterBtn">Register</button>
+                </div>
+            </div>
+
+            <!-- Login Form -->
+            <div class="col-md-5 mb-4" id="loginForm">
+                <div class="card">
+                    <div class="card-header bg-primary">
+                        <h4 class="mb-0">Login to Your Account</h4>
+                    </div>
+                    <div class="card-body p-4">
+                        <form method="post">
+                            <div class="mb-3">
+                                <label for="loginEmail" class="form-label">Email Address</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                    <input type="email" class="form-control" name="gmail" id="loginEmail" required
+                                        placeholder="Enter your email">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="loginPassword" class="form-label">Password</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                    <input type="password" class="form-control" name="password" id="loginPassword"
+                                        required placeholder="Enter your password">
+                                </div>
+                            </div>
+                            <div class="form-check mb-3">
+                                <input type="checkbox" class="form-check-input" id="rememberMe">
+                                <label class="form-check-label" for="rememberMe">Remember me</label>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg">Login</button>
+                            </div>
+                            <div class="text-center mt-3">
+                                <p><a href="#" class="">Forgot your password?</a></p>
+
+                                <div class="d-flex justify-content-center mt-3">
+
+                                    <p>Don't have Account ?</p>
+                                    <a href="./register.php">Create Account now</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Registration Form -->
+
         </div>
-
-        <form method="post">
-            <div class="input-group">
-                <input type="gmail" required name="gmail">
-                <label>Username</label>
-            </div>
-
-            <div class="input-group">
-                <input type="password" required name="password">
-                <label>Password</label>
-            </div>
-
-            <div class="forgot-pass">
-                <a href="#">Forgot Password?</a>
-            </div>
-
-            <button type="submit" class="btn" id="loginBtn">LOGIN</button>
-
-            <div class="signup-link">
-                Don't have an account? <a href="#">Sign Up</a>
-            </div>
-
-            <div class="social-login">
-                <div class="social-icon facebook">f</div>
-                <div class="social-icon google">G</div>
-                <div class="social-icon twitter">t</div>
-            </div>
-        </form>
     </div>
 
-
-
-
-    <!-- 
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // Change background color on focus
-        const inputs = document.querySelectorAll('input');
-        const body = document.querySelector('body');
-        const container = document.querySelector('.container');
-        const colors = ['#6e8efb, #a777e3', '#FF6B6B, #FFE66D', '#1A2980, #26D0CE', '#FF8008, #FFC837'];
-        let colorIndex = 0;
-
-        inputs.forEach(input => {
-            input.addEventListener('focus', () => {
-                colorIndex = (colorIndex + 1) % colors.length;
-                body.style.background = `linear-gradient(135deg, ${colors[colorIndex]})`;
-            });
-        });
-        // Login button effect
-        const loginBtn = document.getElementById('loginBtn');
-        loginBtn.addEventListener('mousedown', () => {
-            loginBtn.style.transform = 'scale(0.95)';
+        // Mobile toggle between login and register
+        document.getElementById('mobileLoginBtn').addEventListener('click', function () {
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('registerForm').style.display = 'none';
+            this.classList.add('active');
+            document.getElementById('mobileRegisterBtn').classList.remove('active');
         });
 
-        loginBtn.addEventListener('mouseup', () => {
-            loginBtn.style.transform = 'scale(1)';
+        document.getElementById('mobileRegisterBtn').addEventListener('click', function () {
+            document.getElementById('registerForm').style.display = 'block';
+            document.getElementById('loginForm').style.display = 'none';
+            this.classList.add('active');
+            document.getElementById('mobileLoginBtn').classList.remove('active');
         });
 
-        loginBtn.addEventListener('click', (e) => {
+        document.getElementById('showRegisterMobile').addEventListener('click', function (e) {
             e.preventDefault();
-            const username = document.querySelector('input[type="text"]').value;
-            if (username) {
-                loginBtn.textContent = `WELCOME ${username.toUpperCase()}!`;
-                setTimeout(() => {
-                    loginBtn.textContent = 'LOGIN';
-                }, 2000);
-            }
+            document.getElementById('registerForm').style.display = 'block';
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('mobileRegisterBtn').classList.add('active');
+            document.getElementById('mobileLoginBtn').classList.remove('active');
         });
-    </script> -->
+
+        document.getElementById('showLoginMobile').addEventListener('click', function (e) {
+            e.preventDefault();
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('mobileLoginBtn').classList.add('active');
+            document.getElementById('mobileRegisterBtn').classList.remove('active');
+        });
+    </script>
 </body>
 
 </html>

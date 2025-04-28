@@ -1,9 +1,15 @@
 <?php
-function CheckInput($check)
+
+function checkinput($data)
 {
-    $check = trim($check);
-    $check = stripslashes($check);
-    $check = htmlspecialchars($check, ENT_QUOTES, 'UTF-8');
-    return $check;
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
 }
+
+
+
+
+
 ?>

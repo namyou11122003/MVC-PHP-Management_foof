@@ -1,7 +1,11 @@
 <?php
 session_start();
-if (isset($_SESSION['gmail']) && isset($_SESSION['password'])) {
-    header("Location: ../../index.php");
+
+// Check if the user is logged in by verifying the session variable
+if (!isset($_SESSION['gmail'])) {
+    // Redirect to login page if not logged in
+    header('Location: ../../index.php');
+    exit();
 }
 require "../pages/header.php";
 include("../../controller/Productcontroller.php");
@@ -51,7 +55,7 @@ $selectproduct = new Productcontroller();
                                             <a class="btn btn-warning btn-sm "
                                                 href="../components/Edite_product.php?id=<?php echo $product['product_id']; ?>"><i
                                                     class="bi bi-pencil m-1 "></i>Edit</a>
-                                            <a onclick="return confirm('Are you sure to delete this product ?');"
+                                            <a onclick="return confirm('Are you sure to delete this product ?id=<?php echo $product['product_id']; ?>')"
                                                 class="btn btn-danger text-decoration-none btn-sm"
                                                 href="../components/delete_product.php?id=<?php echo $product['product_id']; ?>"><i
                                                     class="bi bi-trash3 m-1"></i> Delete</a>

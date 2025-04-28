@@ -67,31 +67,24 @@ class Employee extends database
         return $row;
     }
 
+    public function ViewDetailEmployee()
+    {
+        $selectEmployeeByid = "SELECT * FROM employee WHERE Emp_ID = '{$this->emp_id}' LIMIT 1";
+        $result = mysqli_query($this->connection, $selectEmployeeByid);
+        return mysqli_fetch_assoc($result);
+    }
+    
     public function updateEmployeeById()
     {
-        $sql = "UPDATE employee 
-                SET Emp_Role = ?, 
-                    Emp_gmail = ?, 
-                    Emp_password = ?, 
-                    emp_firstname = ?, 
-                    emp_lastname = ?,
-                    emp_image = ?,
-                    emp_date =?
-                WHERE Emp_ID = ?";
-        $stmt = $this->connection->prepare($sql);
-        $stmt->bind_param(
-            "sssssis",
-            $this->emp_role,
-            $this->emp_email,
-            $this->emp_password,
-            $this->emp_firstname,
-            $this->emp_lastname,
-            $this->emp_id
-            ,
-            $this->emp_image
-        );
-        $stmt->execute();
-        $stmt->close();
+        $updateEmployee = "UPDATE employee SET
+        Emp_Role = '{$this->emp_role}',
+        Emp_gmail = '{$this->emp_email}',
+        Emp_password = '{$this->emp_password}',
+        emp_firstname = '{$this->emp_firstname}', 
+        emp_lastname = '{$this->emp_lastname}',
+        emp_image = '{$this->emp_image}'
+         WHERE Emp_ID = {$this->emp_id}";
+        $result = mysqli_query($this->connection, $updateEmployee);
     }
 }
 ?>

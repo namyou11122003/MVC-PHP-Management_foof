@@ -1,26 +1,16 @@
 <?php
 require_once __DIR__ . "/../../controller/Empoyeecontroller.php";
-$connection = mysqli_connect('localhost', 'root', '', 'mangement_food');
-if (!$connection) {
-    die("Connection failed: " . mysqli_connect_error());
-}        // Check if ID parameter exists
+require_once __DIR__ . "/../../controller/Productcontroller.php";
+$products = new Productcontroller();
+$products->getProductall();
+
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    // Prepare and execute query to fetch item details
-    $stmt = $connection->prepare("SELECT * FROM product  WHERE product_id = ?");
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        $item = $result->fetch_assoc();
-    } else {
-        echo "Item not found";
+    $item = $products->GetProductOne($id);
+    if (!$item) {
+        echo "<script>alert('Product not found!'); window.location.href = '../admin/product.php';</script>";
         exit;
     }
-} else {
-    echo "No item specified";
-    exit;
 }
 ?>
 <style>
@@ -55,8 +45,8 @@ include "../pages/header.php";
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4 text-center mb-3 mb-md-0">
-                                <img src="./product/<?php echo $item['product_image']; ?>" alt="<?php echo $item['product_name']; ?>"
-                                    class="item-image img-fluid rounded">
+                                <img src="./product/<?php echo $item['product_image']; ?>"
+                                    alt="<?php echo $item['product_name']; ?>" class="item-image img-fluid rounded">
                             </div>
 
                             <div class="col-md-8">
@@ -76,14 +66,12 @@ include "../pages/header.php";
                                             <td><span class="badge bg-primary"><?php echo $item['category']; ?></span>
                                             </td>
                                         </tr>
-                                      
+
                                     </table>
                                 </div>
 
                                 <div class="mt-3">
-                                    <a href="edit_item.php?id=<?php echo $item['product_id']; ?>" class="btn btn-warning">
-                                        <i class="bi bi-pencil"></i> Edit
-                                    </a>
+
                                     <a href="../admin/product.php" class="btn btn-info text-white">
                                         <i class="bi bi-arrow-left"></i> Back to List
                                     </a>

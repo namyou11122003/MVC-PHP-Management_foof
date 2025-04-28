@@ -346,6 +346,11 @@ if ($result->num_rows > 0) {
     </section>
     <!-- end of banner  -->
     <!-- menu plural -->
+    <div class="hero-section ">
+        <h3 class="text-center">Menu Popular</h3>
+        <section class="menu-modern"></section>
+    </div>
+    <!-- end of menu pural  -->
     <!-- container card  -->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
         <div class="offcanvas-header">
@@ -400,13 +405,9 @@ if ($result->num_rows > 0) {
                         <button class="btn add-to-cart-btn text-white mt-auto w-100">
                             Add to Cart
                         </button> -->
-
         </div>
     </div>
-    <div class="hero-section ">
-        <h3 class="text-center">Menu Popular</h3>
-        <section class="menu-modern"></section>
-    </div>
+
     </div>
     </div>
     </div>
@@ -415,9 +416,9 @@ if ($result->num_rows > 0) {
     <!-- Responsive Footer Markup -->
     <div class="container-footer py-4" style="background-color: #f8f9fa;">
         <!-- Main Content Section -->
-        <div class="content-section d-flex flex-wrap justify-content-between align-items-start mb-4">
+        <div class="content-section d-flex flex-nowrap justify-content-between align-items-start mb-4">
             <!-- Left Section - Logo and About -->
-            <div class="left-section mb-3" style="flex: 1 1 300px;">
+            <div class="left-section mb-3 mobile-screen" style="flex: 1 1 300px;">
                 <!-- Add your logo or about content here -->
                 <h3 class="section-title">About Us</h3>
                 <p>We deliver fresh produce right to your doorstep. Learn more about our story and what makes us
@@ -425,7 +426,7 @@ if ($result->num_rows > 0) {
             </div>
 
             <!-- Middle Section - Contact Info -->
-            <div class="middle-section mb-3" style="flex: 1 1 300px;">
+            <div class="middle-section mb-3 mobile-screen" style="flex: 1 1 300px;">
                 <h3 class="section-title">Contact Info</h3>
                 <p class="contact-info">0964563693</p>
                 <p class="contact-info">namyou854@gmail.com</p>
@@ -439,7 +440,7 @@ if ($result->num_rows > 0) {
             </div>
 
             <!-- Right Section - Opening Hours -->
-            <div class="right-section mb-3" style="flex: 1 1 300px;">
+            <div class="right-section mb-3 float-sm-none" style="flex: 1 1 300px;">
                 <h3 class="section-title">Opening Hours</h3>
                 <p>Monday - Friday: 08:00 - 22:00</p>
                 <p>Saturday: 10:00 - 16:00</p>
@@ -459,6 +460,27 @@ if ($result->num_rows > 0) {
         </div>
     </div>
 
+    <style>
+        @media screen and (max-width: 768px) {
+            .mobile-screen {
+                display: none;
+            }
+
+            .delivery {
+                bottom: 100px;
+            }
+        }
+
+        @media screen and (min-width: 900px) {
+            .mobile-screen {
+                display: inline;
+            }
+
+            .delivery {
+                bottom: 0px;
+            }
+        }
+    </style>
     <!-- end footer -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

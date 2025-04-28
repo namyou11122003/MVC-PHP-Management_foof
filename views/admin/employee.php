@@ -1,7 +1,12 @@
 <?php
 session_start();
-if (isset($_SESSION['gmail']) && isset($_SESSION['password'])) {
-    header("Location: ../../index.php");}
+
+// Check if the user is logged in by verifying the session variable
+if (!isset($_SESSION['gmail'])) {
+    // Redirect to login page if not logged in
+    header('Location: ../../index.php');
+    exit();
+}
 include "../pages/header.php";
 require_once __DIR__ . "/../../controller/Empoyeecontroller.php";
 include_once("../../handle/Model.php");
@@ -58,7 +63,7 @@ include_once("../../handle/Model.php");
                                         <td>
                                             <a href="../components/Edit.php?id=<?php echo $employee['id']; ?>"
                                                 class="btn btn-warning btn-sm">Edit</a>
-                                            <a href="../components/viewsDetail.php?<?php echo $employee['id']; ?>"
+                                            <a href="../components/viewDetailEmployee.php?id=<?php echo $employee['id']; ?>"
                                                 class="btn btn-info btn-sm view-btn">View</a>
                                             <a onclick="return confirm('Are you sure to delete this product ?');"
                                                 href="../components/delete_employee.php?id=<?php echo $employee['id']; ?>"

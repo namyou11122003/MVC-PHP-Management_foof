@@ -17,6 +17,7 @@ include "../pages/header.php";
                 <input type="text" class="form-control" id="product_price" name="product_price" required>
                 <label for="category_no">Category</label>
                 <select name="category_no" class="form-control" id="category_no">
+                    <option value="Select a Category">Select a Category</option>
                     <option value="Drinks">Drinks</option>
                     <option value="Food">Food</option>
                     <option value="SeaFood">Sea Food</option>
@@ -57,7 +58,7 @@ if (isset($_POST['save_product'])) {
         $filesize = $_FILES['product_image']['size'];
         $tmpname = $_FILES['product_image']['tmp_name'];
 
-        $validImageExtension = ['jpg', 'jpeg', 'png','webp'];
+        $validImageExtension = ['jpg', 'jpeg', 'png', 'webp'];
         $imageExtension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
         if (!in_array($imageExtension, $validImageExtension)) {
             echo "<script> alert('Invalid image extension'); </script>";

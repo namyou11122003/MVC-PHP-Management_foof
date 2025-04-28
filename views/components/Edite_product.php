@@ -7,8 +7,8 @@ include_once("../../controller/Productcontroller.php");
 $controller = new Productcontroller();
 $editeProduct = [];
 
-if (isset($_POST['id'])) {
-    $id = $_POST['id'];
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
     $editeProduct = $controller->editProductById($id);
 }
 ?>
@@ -20,15 +20,17 @@ if (isset($_POST['id'])) {
             <form method="post" enctype="multipart/form-data">
                 <label for="product_id">ID</label>
                 <input type="text" readonly class="form-control" name="product_id"
-                    value="<?php echo $editeProduct['product_id'] ?? ''; ?>">
+                    value="<?php echo isset($editeProduct['product_id']) ? $editeProduct['product_id'] : ''; ?>">
 
                 <label for="product_name">Product Name</label>
                 <input type="text" class="form-control" id="product_name" name="product_name"
-                    value="<?php echo $editeProduct['product_name'] ?? ''; ?>" required>
+                    value="<?php echo isset($editeProduct['product_name']) ? $editeProduct['product_name'] : ''; ?>"
+                    required>
 
                 <label for="product_price">Price</label>
                 <input type="text" class="form-control" id="product_price" name="product_price"
-                    value="<?php echo $editeProduct['product_price'] ?? ''; ?>" required>
+                    value="<?php echo isset($editeProduct['product_price']) ? $editeProduct['product_price'] : ''; ?>"
+                    required>
 
                 <label for="category_no">Category</label>
                 <select name="category_no" class="form-control" id="category_no" required>
@@ -47,7 +49,7 @@ if (isset($_POST['id'])) {
 
                 <?php if (!empty($editeProduct['product_image'])): ?>
                     <br>
-                    <img src="product/<?php echo $editeProduct['product_image']; ?>" alt="Current Image"
+                    <img id="currentImage" src="./product/<?php echo $editeProduct['product_image']; ?>" alt="Current Image"
                         style="max-width: 200px;" />
                 <?php endif; ?>
 
@@ -55,10 +57,15 @@ if (isset($_POST['id'])) {
                     <a class="btn btn-secondary text-decoration-none text-white" href="../admin/product.php">Cancel</a>
                     <button type="submit" class="btn btn-primary" name="save_product">Save</button>
                 </div>
+
             </form>
         </div>
     </div>
 </div>
+<script>
+   
+
+</script>
 
 <?php include "../pages/footer.php"; ?>
 

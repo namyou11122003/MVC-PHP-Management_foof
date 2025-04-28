@@ -22,11 +22,20 @@ class EmployeeController extends Employee
     {
         $this->setID($id);
         $this->deleteEmployeeById();
-       
+
     }
+    // edite and view detail employee
     public function editEmployeeById($id)
     {
+        $this->setID($id);
         return $this->selectById($id);
+    }
+
+    // view detail employee
+    public function GetEmployeeOne($id)
+    {
+        $this->setID($id);
+        return $this->ViewDetailEmployee(); // Ensure this method exists in your productmodel
     }
 
     public function updateEmployee($id, $firstname, $lastname, $email, $role, $password)
@@ -37,9 +46,7 @@ class EmployeeController extends Employee
         $this->emp_email = $email;
         $this->emp_password = $password;
         $this->setID($id);
-
         $this->updateEmployeeById();
-
         // Redirect after update
         header("Location: ../admin/employee.php");
         exit();

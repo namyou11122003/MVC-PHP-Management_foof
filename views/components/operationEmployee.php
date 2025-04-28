@@ -30,11 +30,11 @@ require_once "../../handle/Redirect.php";
                 <label for="product_image">Image</label>
                 <input type="file" class="form-control" id="imageInput" accept="image/*" name="emp_image">
                 <br><br>
-                <img id="imagePreview" src="#" alt="Image Preview" style="display:none; max-width: 200px;" />
+                <img id="imagePreview" src="" alt="Image Preview" style="display:none; max-width: 200px;" />
 
-                <div class="modal-footer">
+                <div class="modal-footer d-flex gap-4">
                     <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal"><a
-                            href="../admin/employee.php">Cancal</a></button>
+                            href="../admin/employee.php"  class="text-light text-decoration-none ">Cancal</a></button>
                     <button type="submit" class="btn btn-primary" id="saveProduct" name="save_emp">Save</button>
                 </div>
             </form>

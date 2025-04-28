@@ -29,7 +29,6 @@ document.addEventListener("DOMContentLoaded", () => {
   fetching().then(() => {
     attachCartEventListeners();
   });
-
   function attachCartEventListeners() {
     const addToCartButtons = document.querySelectorAll(".add-to-cart-btn");
     addToCartButtons.forEach((button) => {
@@ -48,6 +47,10 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   }
+  // start test
+
+  // test end
+
   // Function to add a new item to the cart UI
   function addTocart(product_name, product_price, product_image) {
     const cartItem = document.getElementById("cardItem");
@@ -73,8 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-
-//  remove item from cart 
+//  remove item from cart
 function removeItem() {
   const removeButtons = document.querySelectorAll(".btn-close");
   removeButtons.forEach((button) => {
@@ -96,7 +98,6 @@ function removeItem() {
   });
 }
 // end remove item from cart
-
 // Fetch products from your JSON data
 async function fetching() {
   try {
@@ -127,11 +128,16 @@ function displayProduct(data) {
          <div class="col cart-product" data-id="${product_id}">
             <div class="card menu-card border-0 shadow-sm">
               <img src="./views/components/product/${product_image}" class="img" alt="${product_name}" />
-              <div class="card-body d-flex flex-column">
+              <div class="card-body ">
                 <h5 class="card-title">${product_name}</h5>
                 <p class="price mb-1">${product_price} ៛</p>
                 <span class="category-badge mb-3">${category}</span>
-                <button class="btn add-to-cart-btn text-white mt-auto w-100 bg-primary">Add to Cart</button>
+                <button class="btn add-to-cart-btn text-white mt-auto w-100 bg-primary"
+                data-id="${product_id}"
+                data-name = "${product_name}"
+                data-price="${product_price}"
+                data-image = "${product_image}"
+                data-category="${category}">Add to Cart</button>
               </div>
             </div>
          </div>`;
@@ -178,21 +184,6 @@ function searchfilter(data) {
     attachCartEventListeners();
   });
 }
-
-// Helper: Reattach cart event listeners after product re-rendering.
-// function attachCartEventListeners() {
-//   const addToCartButtons = document.querySelectorAll(".add-to-cart-btn");
-//   addToCartButtons.forEach((button) => {
-//     button.addEventListener("click", (e) => {
-//       const productCard = e.target.closest(".cart-product");
-//       if (!productCard) return;
-//       const productName = productCard.querySelector(".card-title").textContent;
-//       const productPrice = productCard.querySelector(".price").textContent;
-//       const productImage = productCard.querySelector(".img").src;
-//       addTocart(productName, productPrice, productImage);
-//     });
-//   });
-// }
 
 // menu plural
 const menuModerm = document.querySelector(".menu-modern");
@@ -242,3 +233,57 @@ const modern = data
   .join("");
 
 menuModerm.innerHTML = modern;
+/**<script>
+let cart = {};
+
+document.querySelectorAll('.add-to-cart').forEach(btn => {
+    btn.addEventListener('click', () => {
+        let id = btn.dataset.id;
+        let name = btn.dataset.name;
+        let price = parseFloat(btn.dataset.price);
+
+        if (cart[id]) {
+            cart[id].quantity += 1;
+        } else {
+            cart[id] = { name, price, quantity: 1 };
+        }
+        updateCart();
+    });
+});
+
+function updateCart() {
+    let cartContainer = document.getElementById('cart-items');
+    cartContainer.innerHTML = "";
+    let total = 0;
+    for (let id in cart) {
+        let item = cart[id];
+        total += item.price * item.quantity;
+        cartContainer.innerHTML += `<div>${item.name} x ${item.quantity} = $${(item.price * item.quantity).toFixed(2)}</div>`;
+    }
+    document.getElementById('total').innerText = total.toFixed(2);
+}
+
+// Search filter
+document.getElementById('search').addEventListener('keyup', function() {
+    let keyword = this.value.toLowerCase();
+    document.querySelectorAll('.product-item').forEach(item => {
+        item.style.display = item.innerText.toLowerCase().includes(keyword) ? 'block' : 'none';
+    });
+});
+
+// Checkout
+function checkout() {
+    fetch('checkout.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(cart)
+    })
+    .then(res => res.text())
+    .then(data => {
+        alert(data);
+        cart = {}; // empty cart
+        updateCart();
+    });
+}
+</script>
+ */

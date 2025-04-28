@@ -1,7 +1,9 @@
 <!-- Bootstrap JS with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="../../assets/js/app.js">
+<!-- <script src="../../assets/js/app.js"> -->
+</script>
+<script src="../../assets/js/chart.js">
 </script>
 <script>
     function previewImage(event) {
@@ -39,7 +41,36 @@
             preview.style.display = 'none';
         }
     });
+
+
+
+    // chang image when update 
+    document.getElementById('imageInput').addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        if (file) {
+            // Remove or hide the currently displayed image if it exists
+            const currentImage = document.getElementById('currentImage');
+            if (currentImage) {
+                currentImage.remove();
+            }
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                let previewImg = document.getElementById('imagePreview');
+                if (!previewImg) {
+                    previewImg = document.createElement('img');
+                    previewImg.id = 'imagePreview';
+                    previewImg.style.maxWidth = '200px';
+                    document.getElementById('imageInput').insertAdjacentElement('afterend', previewImg);
+                }
+                previewImg.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
 </script>
+
+
 </body>
 
 </html>

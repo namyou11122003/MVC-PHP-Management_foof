@@ -24,9 +24,15 @@ class Productcontroller extends productmodel
     public function editProductById($id)
     {
         $this->setId($id);
+        return $this->getProductById();
+    }
+    
+// get prodct by id like view page 
+    public function GetProductOne($id)
+    {
+        $this->setId($id);
         return $this->getProductById(); // Ensure this method exists in your productmodel
     }
-
     // UPDATE
     public function updateProduct($product_id, $product_name, $product_price, $product_image, $category)
     {

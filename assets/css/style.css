@@ -37,10 +37,6 @@ body {
   margin-right: 0 !important;
 }
 /* add class active to nav-link */
-.nav-link.active {
-  background-color: dodgerblue;
-  color: white;
-}
 
 .card-stats {
   transition: all 0.3s;

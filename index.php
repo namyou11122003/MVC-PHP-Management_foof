@@ -323,7 +323,12 @@ if ($result->num_rows > 0) {
                     </div>
                     <!-- User Account -->
                     <a href="./login.php" class="nav-action-btn"> <i class="bi bi-person"></i>
+
                     </a>
+
+
+
+                    <p class="m-2">Nam You</p>
                     <!-- add to card  -->
                     <button class="btn  nav-action-btn icon-add" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
@@ -381,8 +386,12 @@ if ($result->num_rows > 0) {
                     <button type="button" class="btn btn-danger" data-bs-dismiss="offcanvas"
                         aria-label="Close">Close</button>
 
-                    <button class="btn btn-primary checkout-btn" id="btncheckout"><a
-                            class="text-decoration-none text-light" href="">Checkout</a></button>
+                    <!-- Checkout Form -->
+                    <form id="checkoutForm" action="checkout.php" method="POST">
+                        <!-- Hidden input to hold JSON cart data -->
+                        <!-- <input type="hidden" name="cartData" id="cartData" value=""> -->
+                        <button type="submit" class="btn btn-primary" name="cartData" id="cartData">Checkout</button>
+                    </form>
                 </div>
 
             </div>

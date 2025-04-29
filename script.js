@@ -5,6 +5,17 @@ const container = document.querySelector(".container-card");
 const numberCart = document.querySelector(".number-cart");
 const totalPayment = document.getElementById("totalPayment");
 
+
+document
+  .getElementById("checkoutForm")
+  .addEventListener("submit", function (e) {
+    // set the hidden input "cartData" value with JSON string of the cart array
+    document.getElementById("cartData").value = JSON.stringify(cart);
+});
+
+
+
+
 // increase quantity
 function increaseQuantity(e) {
   let parent = e.parentElement;
@@ -43,38 +54,67 @@ document.addEventListener("DOMContentLoaded", () => {
           .textContent.replace("៛", "")
           .trim();
         const productImage = productCard.querySelector(".img").src;
-        addTocart(productName, productPrice, productImage);
+        addTocart(productId, productName, productPrice, productImage);
       });
     });
   }
-  // start test
-
-  // test end
-
   // Function to add a new item to the cart UI
-  function addTocart(product_name, product_price, product_image) {
-    const cartItem = document.getElementById("cardItem");
-    const item = `  
-     <div class="card-item d-flex justify-content-between align-items-center mb-3">
-        <img src="${product_image}" alt="Product Image" class="img-fluid" style="width: 50px; height: 50px;">
-        <div class="product-details d-flex gap-3 fs-6 align-items-center mt-2">
-          <p class="product-name text">${product_name}</p>
-          <p class="product-price">${product_price}៛</p>
-          <input type="hidden" class="product-id" value="${product_price}">
-        </div>
-        <div class="quantity d-flex align-items-center gap-2">
-          <button class="btn btn-secondary btn-sm btn-decrease" onclick="decrease(this)">-</button>
-          <span class="quantity-value">1</span>
-          <button class="btn btn-secondary btn-sm btn-increase" onclick="increaseQuantity(this)" >+</button>
-          <button class="btn btn-close" onclick="removeItem()"></button>
-        </div>
-      </div>`;
-    numberCart.innerText = parseInt(numberCart.textContent) + 1;
-    cartItem.innerHTML += item;
-    totalPayment.innerHTML =
-      parseInt(totalPayment.textContent) + parseInt(product_price);
+  function addTocart(
+    product_id,
+    product_name,
+    product_price,
+    product_image,
+    product_category
+  ) {
+    // Check if the product already exists in the cart (update quantity if so)
+    let existing = cart.find((item) => item.id === product_id);
+    if (existing) {
+      existing.quantity += 1;
+    } else {
+      cart.push({
+        id: product_id,
+        name: product_name,
+        price: parseFloat(product_price),
+        image: product_image,
+        category: product_category,
+        quantity: 1,
+      });
+    }
+    updateCartUI();
+
+    console.log(cart);
   }
+
+  // Example function to update the UI (modify as needed)
+  function updateCartUI() {
+    const cartItem = document.getElementById("cardItem");
+    let total = 0;
+    cartItem.innerHTML = ""; // Clear current view
+    cart.forEach((item) => {
+      total += item.price * item.quantity;
+      cartItem.innerHTML += `
+        <div class="card-item d-flex justify-content-between align-items-center mb-3" data-id="${item.id}">
+          <img src="${item.image}" alt="Product Image" class="img-fluid" style="width: 50px; height: 50px;">
+          <div class="product-details d-flex gap-3 fs-6 align-items-center mt-2">
+            <p class="product-name">${item.name}</p>
+            <p class="product-price">${item.price}៛</p>
+            <input type="hidden" class="product-id" value="${item.id}">
+          </div>
+          <div class="quantity d-flex align-items-center gap-2">
+            <button class="btn btn-secondary btn-sm btn-decrease" onclick="decrease(this)">-</button>
+            <span class="quantity-value">${item.quantity}</span>
+            <button class="btn btn-secondary btn-sm btn-increase" onclick="increaseQuantity(this)">+</button>
+            <button class="btn btn-close" onclick="removeItem(this, '${item.id}')"></button>
+          </div>
+        </div>`;
+    });
+    document.getElementById("totalPayment").innerText = total;
+    document.querySelector(".number-cart").innerText = cart.length;
+  }
+
+  // (Additional functions increaseQuantity, decrease, removeItem should also update the cart array accordingly)
 });
+// Sample Checkout using form submission (set hidden form field with JSON)
 
 //  remove item from cart
 function removeItem() {
@@ -98,6 +138,7 @@ function removeItem() {
   });
 }
 // end remove item from cart
+
 // Fetch products from your JSON data
 async function fetching() {
   try {
@@ -110,7 +151,6 @@ async function fetching() {
     console.log(error);
   }
 }
-
 // Render products along with data attributes for cart operations
 function displayProduct(data) {
   container.innerHTML =
@@ -145,6 +185,10 @@ function displayProduct(data) {
           )
           .join("")
       : "<h2 class='w-100 mb-lg-5 text-center text-break'>There are no products available.</h2>";
+
+  // cart.push(productId, productName, productPrice, productImage);
+  // console.log(cart);
+  // Attach event listeners to the newly rendered buttons
 }
 
 // Render category buttons
@@ -233,57 +277,3 @@ const modern = data
   .join("");
 
 menuModerm.innerHTML = modern;
-/**<script>
-let cart = {};
-
-document.querySelectorAll('.add-to-cart').forEach(btn => {
-    btn.addEventListener('click', () => {
-        let id = btn.dataset.id;
-        let name = btn.dataset.name;
-        let price = parseFloat(btn.dataset.price);
-
-        if (cart[id]) {
-            cart[id].quantity += 1;
-        } else {
-            cart[id] = { name, price, quantity: 1 };
-        }
-        updateCart();
-    });
-});
-
-function updateCart() {
-    let cartContainer = document.getElementById('cart-items');
-    cartContainer.innerHTML = "";
-    let total = 0;
-    for (let id in cart) {
-        let item = cart[id];
-        total += item.price * item.quantity;
-        cartContainer.innerHTML += `<div>${item.name} x ${item.quantity} = $${(item.price * item.quantity).toFixed(2)}</div>`;
-    }
-    document.getElementById('total').innerText = total.toFixed(2);
-}
-
-// Search filter
-document.getElementById('search').addEventListener('keyup', function() {
-    let keyword = this.value.toLowerCase();
-    document.querySelectorAll('.product-item').forEach(item => {
-        item.style.display = item.innerText.toLowerCase().includes(keyword) ? 'block' : 'none';
-    });
-});
-
-// Checkout
-function checkout() {
-    fetch('checkout.php', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(cart)
-    })
-    .then(res => res.text())
-    .then(data => {
-        alert(data);
-        cart = {}; // empty cart
-        updateCart();
-    });
-}
-</script>
- */

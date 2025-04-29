@@ -1,11 +1,18 @@
+<style>
+    .employee_logo {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 50%;
+
+
+    }
+</style>
+
 <div id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark ">
     <div class="d-flex justify-content-between align-items-center p-3 border-bottom ">
-        <h4 class="sidebar-heading d-flex justify-content-between align-items-center mb-0 text-white">
-            <span class="nav-text">Dashboard</span>
-        </h4>
-        <button id="toggleSidebar" class="btn btn-dark">
-            <i class="bi bi-list"></i>
-        </button>
+        <img class="employee_logo" src="../pages/admin.png" alt="Photo Of Employee">
+        <!-- <img class="employee_logo" src="../../kpt.jpg" alt="Photo Of Employee"> -->
     </div>
     <div class="position-sticky top-0 start-0 pt-3 ">
         <ul class="nav flex-column">

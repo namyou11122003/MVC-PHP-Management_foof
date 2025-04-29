@@ -29,73 +29,44 @@ include "../pages/header.php";
             <div class="card p-3 shadow-sm">
 
                 <table class="container">
+                    <h2 class="text-center">Customer Order </h2>
                     <thead class="text-gray">
                         <tr>
                             <th>No</th>
-                            <th>Customers name</th>
-                            <th>Item Name</th>
-                            <th>OrderDate</th>
-                            <th>Status</th>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
                             <th>Price</th>
+                            <th>Total Payment</th>
+                            <th>Order Date </th>
+                            <th>Gmail</th>
+                            <th>Phone </th>
+                            <th colspan="2">Address</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="border-top ">
-                            <td class="p-3">1</td>
-                            <td>Eren Yaeger</td>
-                            <td>ឆ្អឹងជ្រូកបំពង</td>
-                            <td>2023-10-01</td>
-                            <td>Pending</td>
-                            <td>$10.00</td>
-                        </tr>
-                        <tr class="border-top ">
-                            <td class="p-3">1</td>
-                            <td>Eren Yaeger</td>
-                            <td>ឆ្អឹងជ្រូកបំពង</td>
-                            <td>2023-10-01</td>
-                            <td>Pending</td>
-                            <td>$10.00</td>
-                        </tr>
-                        <tr class="border-top ">
-                            <td class="p-3">1</td>
-                            <td>Eren Yaeger</td>
-                            <td>ឆ្អឹងជ្រូកបំពង</td>
-                            <td>2023-10-01</td>
-                            <td>Pending</td>
-                            <td>$10.00</td>
-                        </tr>
-                        <tr class="border-top ">
-                            <td class="p-3">1</td>
-                            <td>Eren Yaeger</td>
-                            <td>ឆ្អឹងជ្រូកបំពង</td>
-                            <td>2023-10-01</td>
-                            <td>Pending</td>
-                            <td>$10.00</td>
-                        </tr>
-                        <tr class="border-top ">
-                            <td class="p-3">1</td>
-                            <td>Eren Yaeger</td>
-                            <td>ឆ្អឹងជ្រូកបំពង</td>
-                            <td>2023-10-01</td>
-                            <td>Pending</td>
-                            <td>$10.00</td>
-                        </tr>
-                        <tr class="border-top ">
-                            <td class="p-3">1</td>
-                            <td>Eren Yaeger</td>
-                            <td>ឆ្អឹងជ្រូកបំពង</td>
-                            <td>2023-10-01</td>
-                            <td>Pending</td>
-                            <td>$10.00</td>
-                        </tr>
-                        <tr class="border-top ">
-                            <td class="p-3">1</td>
-                            <td>Eren Yaeger</td>
-                            <td>ឆ្អឹងជ្រូកបំពង</td>
-                            <td>2023-10-01</td>
-                            <td>Pending</td>
-                            <td>$10.00</td>
-                        </tr>
+                        <?php
+                        require_once __DIR__ . "/../../controller/controllerOrder.php";
+                        $getallOrders = new ControllerOrder();
+                        $getallOrders = $getallOrders->getOderAll();
+                        foreach ($getallOrders as $order) {
+                            ?>
+                            <tr class="border-top ">
+                                <td><?PHP echo $order['id']; ?> </td>
+                                <td><?PHP echo $order['name']; ?> </td>
+                                <td><?PHP echo $order['qty']; ?> </td>
+                                <td> <?PHP echo $order['price']; ?>​៛ </td>
+                                <td><?PHP echo $order['total']; ?> ៛ </td>
+                                <td><?PHP echo $order['date']; ?> </td>
+                                <td><?PHP echo $order['gmail']; ?> </td>
+                                <td>0<?PHP echo $order['phone']; ?> </td>
+                                <td><?PHP echo $order['address']; ?> </td>
+                            </tr>
+                            <?PHP
+                        }
+                        ?>
+
+
+
                     </tbody>
                 </table>
             </div>

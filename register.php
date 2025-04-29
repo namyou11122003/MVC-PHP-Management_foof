@@ -85,10 +85,12 @@ if (isset($_POST['createAcount'])) {
     $email = $_POST['email'];
     $phone = $_POST['phonenumber'];
     $password = $_POST['password'];
+    date_default_timezone_set('Asia/Phnom_Penh');
+    $register_date = date('Y-m-d H:i:s');
+
     // $password = password_hash($password, PASSWORD_DEFAULT);
-    $customer->customer_register($name, $email, $phone, $password);
+    $customer->customer_register($name, $email, $phone, $password, $register_date);
     header("location: ./index.php");
 }
-
 
 ?>

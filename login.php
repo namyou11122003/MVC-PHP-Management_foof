@@ -1,45 +1,35 @@
 <?php
 session_start();
 include './handle/Checkinput.php';
-
 // Create a new mysqli connection
 $connection = new mysqli('localhost', 'root', '', 'mangement_food');
-
 // Check connection
 if ($connection->connect_error) {
     die("Connection failed: " . $connection->connect_error);
 }
 
+
 if (isset($_POST['gmail']) && isset($_POST['password'])) {
     $gmail = $_POST['gmail'];
     // Clean up user input (assuming checkinput() does necessary sanitation)
-    $password = checkinput($_POST['password']);
 
-    // Use a prepared statement and select the user by email only
+    $password = checkinput($_POST['password']);
     $stmt = $connection->prepare("SELECT * FROM employee WHERE Emp_gmail = ?");
     $stmt->bind_param("s", $gmail);
     $stmt->execute();
     $result = $stmt->get_result();
-
     if ($result && $result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        // Verify the password from input against the hash stored in the database
         if (password_verify($password, $row['Emp_password'])) {
             $_SESSION['gmail'] = $row['Emp_gmail'];
+            $_SESSION['employee_photo'] = $row['Emp_image']; 
             header('Location: ./views/admin/index.php');
             exit();
         } else {
             echo "<script>alert('Incorrect password!');</script>";
         }
-    } else {
-        header("location: ./login.php");
-        echo "<script>alert('Email not found!');</script>";
     }
-
-    $stmt->close();
 }
-
-$connection->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -138,9 +128,7 @@ $connection->close();
                             </div>
                             <div class="text-center mt-3">
                                 <p><a href="#" class="">Forgot your password?</a></p>
-
                                 <div class="d-flex justify-content-center mt-3">
-
                                     <p>Don't have Account ?</p>
                                     <a href="./register.php">Create Account now</a>
                                 </div>
@@ -157,39 +145,6 @@ $connection->close();
 
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
-
-    <script>
-        // Mobile toggle between login and register
-        document.getElementById('mobileLoginBtn').addEventListener('click', function () {
-            document.getElementById('loginForm').style.display = 'block';
-            document.getElementById('registerForm').style.display = 'none';
-            this.classList.add('active');
-            document.getElementById('mobileRegisterBtn').classList.remove('active');
-        });
-
-        document.getElementById('mobileRegisterBtn').addEventListener('click', function () {
-            document.getElementById('registerForm').style.display = 'block';
-            document.getElementById('loginForm').style.display = 'none';
-            this.classList.add('active');
-            document.getElementById('mobileLoginBtn').classList.remove('active');
-        });
-
-        document.getElementById('showRegisterMobile').addEventListener('click', function (e) {
-            e.preventDefault();
-            document.getElementById('registerForm').style.display = 'block';
-            document.getElementById('loginForm').style.display = 'none';
-            document.getElementById('mobileRegisterBtn').classList.add('active');
-            document.getElementById('mobileLoginBtn').classList.remove('active');
-        });
-
-        document.getElementById('showLoginMobile').addEventListener('click', function (e) {
-            e.preventDefault();
-            document.getElementById('loginForm').style.display = 'block';
-            document.getElementById('registerForm').style.display = 'none';
-            document.getElementById('mobileLoginBtn').classList.add('active');
-            document.getElementById('mobileRegisterBtn').classList.remove('active');
-        });
-    </script>
 </body>
 
 </html>

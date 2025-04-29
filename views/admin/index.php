@@ -6,7 +6,6 @@ if (!isset($_SESSION['gmail'])) {
     // Redirect to login page if not logged in
     header('Location: ../../index.php');
     exit();
-
 }
 
 include "../pages/header.php";
@@ -20,7 +19,6 @@ include "../pages/header.php";
             <?php
             include '../pages/search.php';
             include '../pages/sidebar.php';
-            require "./chart.php";
             ?>
         </div>
     </div>

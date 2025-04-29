@@ -75,5 +75,12 @@
         "product_price": "10000",
         "product_image": "6805aa66328df.webp",
         "category": "Drinks"
+    },
+    {
+        "product_id": "15",
+        "product_name": "ttt",
+        "product_price": "2.5",
+        "product_image": "680f7f8f5f722.webp",
+        "category": "Drinks"
     }
 ]

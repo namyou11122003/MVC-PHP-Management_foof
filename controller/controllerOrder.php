@@ -38,7 +38,6 @@ class ControllerOrder extends OrdersDetail
         return $this->CountinOnemonth();
     }
 
-
 }
 
 

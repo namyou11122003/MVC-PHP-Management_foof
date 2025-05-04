@@ -3,7 +3,6 @@ ob_start(); // Start output buffering
 include_once "../../handle/Redirect.php";
 include "../pages/header.php";
 include_once("../../controller/Productcontroller.php");
-
 $controller = new Productcontroller();
 $editeProduct = [];
 
@@ -12,7 +11,6 @@ if (isset($_GET['id'])) {
     $editeProduct = $controller->editProductById($id);
 }
 ?>
-
 <div class="container-fluid">
     <div class="row">
         <?php include '../pages/navbar.php'; ?>
@@ -62,10 +60,7 @@ if (isset($_GET['id'])) {
         </div>
     </div>
 </div>
-<script>
-   
 
-</script>
 
 <?php include "../pages/footer.php"; ?>
 

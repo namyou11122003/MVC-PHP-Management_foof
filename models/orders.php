@@ -79,12 +79,15 @@ class OrdersDetail extends database
         $sql = "SELECT MONTH(order_data) AS month, COUNT(*) AS count FROM order_detail GROUP BY month";
         $result = $this->connection->query($sql);
 
-        $data = array_fill(1, 12, 0); 
+        $data = array_fill(1, 12, 0);
         while ($row = $result->fetch_assoc()) {
             $data[(int) $row['month']] = (int) $row['count'];
         }
         return $data;
     }
+
+
+
 
 
 

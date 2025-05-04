@@ -2,9 +2,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <!-- <script src="../../assets/js/app.js"> -->
-</script>
-<script src="../../assets/js/chart.js">
-</script>
 <script>
     function previewImage(event) {
         const input = event.target;
@@ -69,7 +66,58 @@
         }
     });
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const viewButtons = document.querySelectorAll('.view-btn');
 
+        viewButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const empId = this.getAttribute('data-id');
+
+                // Fetch detail via AJAX
+                fetch(`../components/viewDetailEmployee.php?id=${empId}`)
+                    .then(response => response.text())
+                    .then(data => {
+                        document.getElementById('modalContent').innerHTML = data;
+                        // Show modal
+                        const modal = new bootstrap.Modal(document.getElementById('viewModal'));
+                        modal.show();
+                    })
+                    .catch(error => {
+                        console.error('Error fetching employee details:', error);
+                        document.getElementById('modalContent').innerHTML = 'Error loading data.';
+                    });
+            });
+        });
+    });
+</script>
+<!-- eidte  -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const editButtons = document.querySelectorAll('.edit-btn');
+
+        editButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const empId = this.getAttribute('data-id');
+
+                // Load edit form from PHP file
+                fetch(`../components/Edit.php?id=${empId}`)
+                    .then(response => response.text())
+                    .then(data => {
+                        document.getElementById('editModalContent').innerHTML = data;
+
+                        // Show modal
+                        const modal = new bootstrap.Modal(document.getElementById('editModal'));
+                        modal.show();
+                    })
+                    .catch(error => {
+                        console.error('Error loading edit form:', error);
+                        document.getElementById('editModalContent').innerHTML = 'Error loading form.';
+                    });
+            });
+        });
+    });
+</script>
 
 </body>
 

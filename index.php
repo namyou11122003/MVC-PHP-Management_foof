@@ -1,4 +1,5 @@
 <?php
+session_start();
 $host = "localhost";
 $user = "root";
 $password = "";
@@ -325,10 +326,9 @@ if ($result->num_rows > 0) {
                     <a href="./login.php" class="nav-action-btn"> <i class="bi bi-person"></i>
 
                     </a>
+                    <!--  -->
 
-
-
-                    <p class="m-2">Nam You</p>
+                    <p class="m-2"><?php echo isset($_SESSION['crs_name']) ? $_SESSION['crs_name'] : ""; ?></p>
                     <!-- add to card  -->
                     <button class="btn  nav-action-btn icon-add" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">

@@ -11,8 +11,9 @@
 
 <div id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark ">
     <div class="d-flex justify-content-between align-items-center p-3 border-bottom ">
-        <img class="employee_logo" src="../pages/admin.png" alt="Photo Of Employee">
-        <!-- <img class="employee_logo" src="../../kpt.jpg" alt="Photo Of Employee"> -->
+        <img class="employee_logo"
+            src="./images/<?php echo isset($_SESSION['employee_photo']) ? $_SESSION['employee_photo'] : " "; ?>"
+            alt="Photo Of Employee">
     </div>
     <div class="position-sticky top-0 start-0 pt-3 ">
         <ul class="nav flex-column">
@@ -64,6 +65,7 @@
                     <span class="nav-text">Sign Out</span>
                 </a>
             </li>
+            
         </ul>
     </div>
 </div>

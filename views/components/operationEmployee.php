@@ -2,45 +2,44 @@
 require_once __DIR__ . "/../../controller/Empoyeecontroller.php";
 require_once "../../handle/Checkinput.php";
 require_once "../../handle/Redirect.php";
+include "../pages/header.php";
 
 //  delete from database 
 ?>
-<div class="container-fluid">
+<!-- <div class="container-fluid">
     <div class="row">
         <?php
-        include "../pages/header.php";
-        include '../pages/navbar.php';
-        ?>
-        <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <form method="post" enctype="multipart/form-data">
-                <label for="ID">ID</label>
-                <input type="text" class="form-control" id="ID" name="ID" name="emp-id" readonly>
-                <label for="emp_firstname">First Name</label>
-                <input type="text" class="form-control" id="emp_firstname" name="emp_firstname" required>
-                <label for="emp_lastname">Last Name</label>
-                <input type="text" class="form-control" id="emp_lastname" name="emp_lastname" required>
-                <label for="emp_email">Email</label>
-                <input type="email" class="form-control" id="emp_email" name="emp_email" required>
-                <label for="emp_role">Role</label>
-                <input type="text" class="form-control" id="emp_role" name="emp_role" required>
-                <label for="emp_password">Password</label>
-                <input type="password" class="form-control" id="emp_password" name="emp_password" required>
-                <!-- <label for="`emp_image`">Photo Employee</label>
+        ?> -->
+<!-- <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4"> -->
+<form method="post" enctype="multipart/form-data">
+    <label for="ID">ID</label>
+    <span>ID : </span><input type="text" class="form-control" id="ID" name="ID" name="emp-id" readonly>
+    <label for="emp_firstname">First Name</label>
+    <input type="text" class="form-control" id="emp_firstname" name="emp_firstname" required>
+    <label for="emp_lastname">Last Name</label>
+    <input type="text" class="form-control" id="emp_lastname" name="emp_lastname" required>
+    <label for="emp_email">Email</label>
+    <input type="email" class="form-control" id="emp_email" name="emp_email" required>
+    <label for="emp_role">Role</label>
+    <input type="text" class="form-control" id="emp_role" name="emp_role" required>
+    <label for="emp_password">Password</label>
+    <input type="password" class="form-control" id="emp_password" name="emp_password" required>
+    <!-- <label for="`emp_image`">Photo Employee</label>
                 <input type="file" class="form-control" id="preview" name="emp_image" required> -->
-                <label for="product_image">Image</label>
-                <input type="file" class="form-control" id="imageInput" accept="image/*" name="emp_image">
-                <br><br>
-                <img id="imagePreview" src="" alt="Image Preview" style="display:none; max-width: 200px;" />
+    <label for="product_image">Image</label>
+    <input type="file" class="form-control" id="imageInput" accept="image/*" name="emp_image">
+    <br><br>
+    <img id="imagePreview" src="" alt="Image Preview" style="display:none; max-width: 200px;" />
 
-                <div class="modal-footer d-flex gap-4">
-                    <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal"><a
-                            href="../admin/employee.php"  class="text-light text-decoration-none ">Cancal</a></button>
-                    <button type="submit" class="btn btn-primary" id="saveProduct" name="save_emp">Save</button>
-                </div>
-            </form>
-        </div>
+    <div class="modal-footer d-flex gap-4">
+        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal"><a href="../admin/employee.php"
+                class="text-light text-decoration-none ">Cancal</a></button>
+        <button type="submit" class="btn btn-primary" id="saveProduct" name="save_emp">Save</button>
     </div>
-</div>
+</form>
+<!-- </div> -->
+<!-- </div>
+</div> -->
 
 
 <!-- edit -->
@@ -53,7 +52,7 @@ if (isset($_POST['save_emp'])) {
     $emp_lastname = $_POST['emp_lastname'];
     $emp_email = $_POST['emp_email'];
     $emp_role = $_POST['emp_role'];
-    $emp_password = password_hash($_POST['emp_password'], PASSWORD_DEFAULT);
+    $emp_password = $_POST['emp_password'];
 
     if ($_FILES['emp_image']['error'] === 200) {
         echo "<script> alert('Image does not exist'); </script>";

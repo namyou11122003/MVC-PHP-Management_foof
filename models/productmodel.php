@@ -28,6 +28,10 @@ class productmodel extends database
         }
     }
 
+
+
+
+    
     // READ: Retrieve all products
     public function getProduct()
     {
@@ -45,7 +49,6 @@ class productmodel extends database
         }
         return $data;
     }
-
     // READ: Retrieve single product details by product_id
     public function getProductById()
     {

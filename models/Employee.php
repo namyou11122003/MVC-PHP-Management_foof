@@ -73,7 +73,7 @@ class Employee extends database
         $result = mysqli_query($this->connection, $selectEmployeeByid);
         return mysqli_fetch_assoc($result);
     }
-    
+
     public function updateEmployeeById()
     {
         $updateEmployee = "UPDATE employee SET
@@ -86,5 +86,8 @@ class Employee extends database
          WHERE Emp_ID = {$this->emp_id}";
         $result = mysqli_query($this->connection, $updateEmployee);
     }
+
+
+
 }
 ?>

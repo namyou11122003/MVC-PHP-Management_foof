@@ -51,5 +51,7 @@ class EmployeeController extends Employee
         header("Location: ../admin/employee.php");
         exit();
     }
+  
+
 }
 ?>

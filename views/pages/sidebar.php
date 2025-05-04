@@ -76,9 +76,31 @@
                             <i class="bi bi-graph-up fs-4"></i>
                         </div>
                         <div>
+                            <!-- start growing -->
+                            <?php
+                            // Example data: replace these values with your actual monthly data.
+                            $currentMonthOrders = 120;    // current month orders
+                            $previousMonthOrders = 100;   // previous month orders
+                            
+                            // Ensure previous month is not zero
+                            if ($previousMonthOrders > 0) {
+                                $growthPercent = (($currentMonthOrders - $previousMonthOrders) / $previousMonthOrders) * 100;
+                            } else {
+                                $growthPercent = 0;
+                            }
+
+                            // Format the percentage for display (e.g., two decimals)
+                            $growthFormatted = number_format($growthPercent, 2);
+                            ?>
+                            <!-- end of growing -->
                             <p class="text-muted mb-0">Growth</p>
-                            <h3 class="fw-bold mb-0">18.2%</h3>
-                            <small class="text-danger">-2% from last month</small>
+                            <h3 class="fw-bold mb-0"><?php echo $growthFormatted; ?>%</h3>
+                            <?php if ($growthPercent < 0): ?>
+                                <small class="text-danger">Down <?php echo abs($growthFormatted); ?>% from last
+                                    month</small>
+                            <?php else: ?>
+                                <small class="text-success">Up <?php echo $growthFormatted; ?>% from last month</small>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>

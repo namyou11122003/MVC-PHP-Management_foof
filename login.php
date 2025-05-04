@@ -11,26 +11,40 @@ if ($connection->connect_error) {
 
 if (isset($_POST['gmail']) && isset($_POST['password'])) {
     $gmail = $_POST['gmail'];
-    // Clean up user input (assuming checkinput() does necessary sanitation)
+    $password = $_POST['password'];
+    $employee_sql = "SELECT * FROM employee WHERE Emp_gmail = '$gmail' AND Emp_password = '$password'";
+    $employee_result = $connection->query($employee_sql);
 
-    $password = checkinput($_POST['password']);
-    $stmt = $connection->prepare("SELECT * FROM employee WHERE Emp_gmail = ?");
-    $stmt->bind_param("s", $gmail);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    if ($result && $result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        if (password_verify($password, $row['Emp_password'])) {
+    if ($employee_result->num_rows > 0) {
+        $row = $employee_result->fetch_assoc();
+        if ($row['Emp_password']) {
             $_SESSION['gmail'] = $row['Emp_gmail'];
-            $_SESSION['employee_photo'] = $row['Emp_image']; 
+            $_SESSION['employee_photo'] = $row['emp_image'];
             header('Location: ./views/admin/index.php');
             exit();
-        } else {
-            echo "<script>alert('Incorrect password!');</script>";
+
         }
     }
+
+    // 2. Check in customer_register table
+    $customer_sql = "SELECT * FROM customer_register WHERE csr_gmail = '$gmail' AND csr_password = '$password'";
+    $customer_result = $connection->query($customer_sql);
+
+    if ($customer_result->num_rows > 0) {
+        $row = $customer_result->fetch_assoc();
+        if ($row['csr_password']) {
+            $_SESSION['gmail'] = $row['crs_gmai'];
+            $_SESSION['crs_name'] = $row['csr_name'];
+            header('Location: ./index.php');
+            exit();
+        }
+    }
+    // 3. If login fails
+    echo "Invalid email or password.";
 }
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 

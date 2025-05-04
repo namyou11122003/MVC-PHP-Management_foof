@@ -11,6 +11,11 @@ include "../pages/header.php";
 require_once __DIR__ . "/../../controller/Empoyeecontroller.php";
 include_once("../../handle/Model.php");
 ?>
+<style>
+    label {
+        color: black;
+    }
+</style>
 <div class="container-fluid">
     <div class="row">
         <!-- Sidebar -->
@@ -23,12 +28,38 @@ include_once("../../handle/Model.php");
                         <input type="text" class="form-control d-inline-block me-2" placeholder="Search..."
                             style="width: 200px;">
                         <!-- Button that triggers the modal -->
+
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                             data-bs-target="#addEmployeeModal">
-                            <a class="text-white text-decoration-none" href="../components/operationEmployee.php"><i
-                                    class="bi bi-plus-lg"></i>Add
-                                Employee</a>
+                            <i class="bi bi-plus-lg"></i> Add New Staff
                         </button>
+
+                        <!-- Modal structure -->
+                        <div class="modal fade" id="addEmployeeModal" tabindex="-1"
+                            aria-labelledby="addEmployeeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title text-dark" id="addEmployeeModalLabel">Add New Staff</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"> </button>
+
+                                    </div>
+                                    <div class="modal-body">
+                                        <?php
+                                        // Include the form file but remove header/footer if possible 
+                                        // if already included on main page to avoid duplicate HTML tags 
+                                        include "../components/operationEmployee.php";
+                                        ?>
+
+                                        <?php
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- end of add emp -->
                     </div>
                 </div>
                 <?php MOdalDelete(); ?>
@@ -54,21 +85,52 @@ include_once("../../handle/Model.php");
                                     <tr>
                                         <td><?php echo $employee['id']; ?></td>
                                         <td>
+                                            <!-- <img class="rounded-circle me-2 object-fit-cover" width="40" height="40"
+                                                src="./images/<?php echo $employee['image']; ?>" alt=""> -->
                                             <img class="rounded-circle me-2 object-fit-cover" width="40" height="40"
-                                                src="../components/images/<?php echo $employee['image']; ?>" alt="">
+                                                src="./images/<?php echo $employee['image']; ?>" alt="">
                                             <?php echo $employee['firstname'] . " " . $employee['lastname']; ?>
                                         </td>
                                         <td><?php echo $employee['gmail']; ?></td>
                                         <td><?php echo $employee['role']; ?></td>
                                         <td>
+                                            <a href="../components/Edit.php" class="btn btn-check btn-sm">Update </a>
+
+                                            <!-- end of edite  -->
+
                                             <a href="../components/Edit.php?id=<?php echo $employee['id']; ?>"
-                                                class="btn btn-warning btn-sm">Edit</a>
-                                            <a href="../components/viewDetailEmployee.php?id=<?php echo $employee['id']; ?>"
-                                                class="btn btn-info btn-sm view-btn">View</a>
+                                                class="btn btn-info btn-sm">
+                                                <i class="bi bi-trash3"></i>Update</a>
                                             <a onclick="return confirm('Are you sure to delete this product ?');"
                                                 href="../components/delete_employee.php?id=<?php echo $employee['id']; ?>"
                                                 class="btn btn-danger btn-sm">
                                                 <i class="bi bi-trash3"></i>Delete</a>
+
+
+                                            <button class="btn btn-warning view-btn"
+                                                data-id="<?php echo $employee['id']; ?>"><i
+                                                    class="bi bi-eye"></i>View</button>
+                                            <!-- View Modal -->
+                                            <div class="modal fade" id="viewModal" tabindex="-1"
+                                                aria-labelledby="viewModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-lg">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="viewModalLabel">Employee Details
+                                                            </h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body" id="modalContent">
+                                                            <!-- AJAX-loaded content will appear here -->
+                                                            Loading...
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- end of view modal  -->
+
+
                                         </td>
                                     </tr>
                                     <?php

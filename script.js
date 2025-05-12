@@ -5,16 +5,12 @@ const container = document.querySelector(".container-card");
 const numberCart = document.querySelector(".number-cart");
 const totalPayment = document.getElementById("totalPayment");
 
-
 document
   .getElementById("checkoutForm")
   .addEventListener("submit", function (e) {
     // set the hidden input "cartData" value with JSON string of the cart array
     document.getElementById("cartData").value = JSON.stringify(cart);
-});
-
-
-
+  });
 
 // increase quantity
 function increaseQuantity(e) {
@@ -111,10 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("totalPayment").innerText = total;
     document.querySelector(".number-cart").innerText = cart.length;
   }
-
-  // (Additional functions increaseQuantity, decrease, removeItem should also update the cart array accordingly)
 });
-// Sample Checkout using form submission (set hidden form field with JSON)
 
 //  remove item from cart
 function removeItem() {
@@ -235,7 +228,7 @@ const menuModerm = document.querySelector(".menu-modern");
 const data = [
   {
     id: 1,
-    tittle: "Checken",
+    tittle: "Sea Food",
     des: "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia provident quisquam dolores?",
     img: "./img/food-menu-1.png",
   },
@@ -249,14 +242,14 @@ const data = [
 
   {
     id: 3,
-    tittle: "Checken",
+    tittle: "breakfast",
     des: "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia provident quisquam dolores?",
     img: "./img/promo-4.png",
   },
 
   {
     id: 4,
-    tittle: "Checken",
+    tittle: "vegetables",
     des: "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia provident quisquam dolores?",
     img: "./img/promo-5.png",
   },

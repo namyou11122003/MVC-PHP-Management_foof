@@ -21,19 +21,49 @@ $selectproduct = new Productcontroller();
             <div class="container mt-4">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h1>Products</h1>
-                    <a class="btn btn-primary btn-lg " href="../components/product_operation.php">Add Product</a>
+                 
+
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#addEmployeeModal">
+                        <i class="bi bi-plus-lg"></i> Add New Products
+                    </button>
+
+                    <!-- Modal structure -->
+                    <div class="modal fade" id="addEmployeeModal" tabindex="-1" aria-labelledby="addEmployeeModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title text-dark" id="addEmployeeModalLabel">Add New Staff</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                    </button>
+
+                                </div>
+                                <div class="modal-body">
+                                    <?php
+                                    // Include the form file but remove header/footer if possible 
+                                    // if already included on main page to avoid duplicate HTML tags 
+                                    include "../components/product_operation.php";
+                                    ?>
+
+                                    <?php
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-hover">
                             <thead class="bg-primary text-white">
-                                <tr>
+                                <tr class="">
                                     <th>ID</th>
                                     <th>Name</th>
                                     <th>Price</th>
                                     <th>Image</th>
-                                    <th>Actions</th>
+                                    <th colspan="2">Actions</th>
                                 </tr>
                             </thead>
                             <?php

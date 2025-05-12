@@ -94,13 +94,26 @@ include_once("../../handle/Model.php");
                                         <td><?php echo $employee['gmail']; ?></td>
                                         <td><?php echo $employee['role']; ?></td>
                                         <td>
-                                            <a href="../components/Edit.php" class="btn btn-check btn-sm">Update </a>
 
                                             <!-- end of edite  -->
 
                                             <a href="../components/Edit.php?id=<?php echo $employee['id']; ?>"
                                                 class="btn btn-info btn-sm">
-                                                <i class="bi bi-trash3"></i>Update</a>
+                                                <i class="bi bi-pencil "></i>Update</a>
+                                            <style>
+                                                button>i,
+                                                a>i {
+                                                    margin-right: 7px;
+                                                }
+                                            </style>
+
+
+
+
+
+
+
+
                                             <a onclick="return confirm('Are you sure to delete this product ?');"
                                                 href="../components/delete_employee.php?id=<?php echo $employee['id']; ?>"
                                                 class="btn btn-danger btn-sm">

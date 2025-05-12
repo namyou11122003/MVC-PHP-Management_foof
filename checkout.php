@@ -152,6 +152,7 @@ if (isset($_POST['order'])) {
                         value="<?php echo isset($totalPrice) ? $totalPrice : ''; ?>" readonly>
                     <label for="total">Total Payment</label>
                 </div>
+
                 <!-- Pass through the raw cart data if needed (as a hidden field) -->
                 <?php if (isset($_POST['cartData'])): ?>
                     <input type="hidden" name="cartData" value="<?php echo htmlspecialchars($_POST['cartData']); ?>">

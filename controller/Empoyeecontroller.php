@@ -38,20 +38,21 @@ class EmployeeController extends Employee
         return $this->ViewDetailEmployee(); // Ensure this method exists in your productmodel
     }
 
-    public function updateEmployee($id, $firstname, $lastname, $email, $role, $password)
+    public function updateEmployee($id, $firstname, $lastname, $email, $role, $password, $image)
     {
         $this->emp_firstname = $firstname;
         $this->emp_lastname = $lastname;
         $this->emp_role = $role;
         $this->emp_email = $email;
         $this->emp_password = $password;
+        $this->emp_image = $image;
         $this->setID($id);
         $this->updateEmployeeById();
         // Redirect after update
         header("Location: ../admin/employee.php");
         exit();
     }
-  
+
 
 }
 ?>

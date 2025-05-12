@@ -38,7 +38,6 @@ if ($result->num_rows > 0) {
         rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/client.css">
-    <link rel="stylesheet" href="./assets/css/index.css">
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="./assets/css/footer.css">
     <style>
@@ -47,6 +46,11 @@ if ($result->num_rows > 0) {
             --primary-color: rgb(77, 204, 106);
             --secondary-color: rgb(58, 175, 25);
         }
+
+        /* .btn-login {
+            outline: none;
+            border: none;
+        } */
 
         /* start banner  */
         .hero {
@@ -315,20 +319,12 @@ if ($result->num_rows > 0) {
 
                 <!-- Right Side - Search and Icons -->
                 <div class="d-flex align-items-center">
-                    <!-- Search bar -->
-                    <div class="search-bar me-2">
-                        <i class="bi bi-search search-icon"></i>
-                        <input class="form-control search-input" type="search" placeholder="Search products..."
-                            aria-label="Search" type="text" id="searchInput" placeholder="Search for food or drinks...">
 
-                    </div>
-                    <!-- User Account -->
-                    <a href="./login.php" class="nav-action-btn"> <i class="bi bi-person"></i>
-
-                    </a>
-                    <!--  -->
 
                     <p class="m-2"><?php echo isset($_SESSION['crs_name']) ? $_SESSION['crs_name'] : ""; ?></p>
+
+                    <button class="btn "> <a class="btn btn-primary" href="./login.php">LOGIN</a></button>
+                    <button class="btn "> <a class="btn btn-info " href="./register.php">Register</a></button>
                     <!-- add to card  -->
                     <button class="btn  nav-action-btn icon-add" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
@@ -341,6 +337,8 @@ if ($result->num_rows > 0) {
             </div>
         </div>
     </nav>
+
+
     <!-- banner  -->
     <section class="hero container mt-3 ">
         <div class="hero-content">
@@ -400,6 +398,11 @@ if ($result->num_rows > 0) {
 
 
     <div class="container py-2">
+        <div class="search-bar me-2 h-50">
+            <i class="bi bi-search search-icon"></i>
+            <input class="form-control search-input" type="search" placeholder="Search products..." aria-label="Search"
+                type="text" id="searchInput" placeholder="Search for food or drinks...">
+        </div>
         <div class="btn-container">
             <button class="btn-category">All</button>
         </div>

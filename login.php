@@ -64,7 +64,7 @@ if (isset($_POST['gmail']) && isset($_POST['password'])) {
 
 
         .auth-container {
-            margin-top: 2rem;
+            margin-top: 15rem;
             margin-bottom: 2rem;
         }
 
@@ -95,7 +95,7 @@ if (isset($_POST['gmail']) && isset($_POST['password'])) {
     </style>
 </head>
 
-<body class="bg-dark d-flex justify-content-center align-items-center h-100">
+<body class=" d-flex justify-content-center align-items-center h-100">
 
 
     <!-- Login & Registration Forms -->
@@ -137,7 +137,8 @@ if (isset($_POST['gmail']) && isset($_POST['password'])) {
                                 <input type="checkbox" class="form-check-input" id="rememberMe">
                                 <label class="form-check-label" for="rememberMe">Remember me</label>
                             </div>
-                            <div class="d-grid">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <button class="btn btn-secondary" ><a class="text-decoration-none text-light" href="./index.php">Back Home</a></button>
                                 <button type="submit" class="btn btn-primary btn-lg">Login</button>
                             </div>
                             <div class="text-center mt-3">

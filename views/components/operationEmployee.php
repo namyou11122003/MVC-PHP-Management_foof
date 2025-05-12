@@ -20,8 +20,18 @@ include "../pages/header.php";
     <input type="text" class="form-control" id="emp_lastname" name="emp_lastname" required>
     <label for="emp_email">Email</label>
     <input type="email" class="form-control" id="emp_email" name="emp_email" required>
-    <label for="emp_role">Role</label>
-    <input type="text" class="form-control" id="emp_role" name="emp_role" required>
+    <!-- <label for="emp_role">Role</label>
+    <input type="text" class="form-control" id="emp_role" name="emp_role" required> -->
+    <select name="emp_role" class="form-control" required id="">
+        <option value="">Select role</option>
+        <option value="Admin">Admin</option>
+        <option value="User">User</option>
+        <option value="Sell">Sell</option>
+        <option value="HRM">HRM</option>
+        <option value="CEO">CEO</option>
+    </select>
+
+
     <label for="emp_password">Password</label>
     <input type="password" class="form-control" id="emp_password" name="emp_password" required>
     <!-- <label for="`emp_image`">Photo Employee</label>

@@ -14,8 +14,6 @@ ob_start();
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <!-- link css -->
     <link rel="stylesheet" href="../../assets/css/style.css">
-    <link rel="stylesheet" href="../../assets/css/chart.css">
-    <!-- link js  -->
     <link rel="stylesheet" href="../../assets/js/app.js ">
     <!-- fontawsome -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>

@@ -82,5 +82,12 @@
         "product_price": "10000",
         "product_image": "6810c4262987d.png",
         "category": "Food"
+    },
+    {
+        "product_id": "16",
+        "product_name": "Coffee",
+        "product_price": "10000",
+        "product_image": "68171b31959a1.png",
+        "category": "Drinks"
     }
 ]

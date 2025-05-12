@@ -3,43 +3,36 @@ ob_start(); // Start output buffering
 include_once "../../handle/Redirect.php";
 include "../pages/header.php";
 ?>
-<div class="container-fluid">
-    <div class="row">
-        <?php include '../pages/navbar.php'; ?>
-        <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <form method="post" enctype="multipart/form-data">
-                <label for="product_id">ID</label>
-                <input type="text" readonly class="form-control" name="product_id">
-                <label for="product_name">Product Name</label>
-                <input type="text" class="form-control" id="product_name" name="product_name" required>
+<form method="post" enctype="multipart/form-data">
+    <label for="product_id">ID</label>
+    <input type="text" readonly class="form-control" name="product_id">
+    <label for="product_name">Product Name</label>
+    <input type="text" class="form-control" id="product_name" name="product_name" required>
 
-                <label for="product_price">Price :</label>
-                <input type="text" class="form-control" id="product_price" name="product_price" required>
-                <label for="category_no">Category</label>
-                <select name="category_no" class="form-control" id="category_no">
-                    <option value="Select a Category">Select a Category</option>
-                    <option value="Drinks">Drinks</option>
-                    <option value="Food">Food</option>
-                    <option value="SeaFood">Sea Food</option>
-                    <option value="Steak">Steak</option>
-                    <option value="Soup">Soup</option>
-                    <option value="Bear">Bear</option>
-                    <option value="Hot Pot">Hot Pot</option>
-                    <option value="Shushi">ShuShi</option>
-                </select>
-                <label for="product_image">Image</label>
-                <input type="file" class="form-control" id="imageInput" accept="image/*" name="product_image">
-                <br>
-                <img id="imagePreview" src="#" alt="Image Preview" style="display:none; max-width: 200px;" />
+    <label for="product_price">Price :</label>
+    <input type="text" class="form-control" id="product_price" name="product_price" required>
+    <label for="category_no">Category</label>
+    <select name="category_no" class="form-control" id="category_no">
+        <option value="Select a Category">Select a Category</option>
+        <option value="Drinks">Drinks</option>
+        <option value="Food">Food</option>
+        <option value="SeaFood">Sea Food</option>
+        <option value="Steak">Steak</option>
+        <option value="Soup">Soup</option>
+        <option value="Bear">Bear</option>
+        <option value="Hot Pot">Hot Pot</option>
+        <option value="Shushi">ShuShi</option>
+    </select>
+    <label for="product_image">Image</label>
+    <input type="file" class="form-control" id="imageInput" accept="image/*" name="product_image">
+    <br>
+    <img id="imagePreview" src="#" alt="Image Preview" style="display:none; max-width: 200px;" />
 
-                <div class="modal-footer d-flex gap-2 mt-3">
-                    <a class="btn btn-secondary text-decoration-none text-white" href="../admin/product.php">Cancel</a>
-                    <button type="submit" class="btn btn-primary" name="save_product">Save</button>
-                </div>
-            </form>
-        </div>
+    <div class="modal-footer d-flex gap-2 mt-3">
+        <a class="btn btn-secondary text-decoration-none text-white" href="../admin/product.php">Cancel</a>
+        <button type="submit" class="btn btn-primary" name="save_product">Save</button>
     </div>
-</div>
+</form>
 
 <?php include "../pages/footer.php"; ?>
 <?php

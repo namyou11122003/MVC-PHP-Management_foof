@@ -9,14 +9,19 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome for icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <style>
+        #registerForm {
+            margin-top: 8rem;
+        }
+    </style>
 
 <body class="d-flex justify-content-center mt-5">
 
 
-    <div class="col-md-5 mb-4" id="registerForm">
+    <div class="col-md-5 mb-4 shadow" id="registerForm">
         <div class="card">
-            <div class="card-header">
-                <h4 class="mb-0">Create Your Account</h4>
+            <div class="card-header bg-primary">
+                <h4 class="mb-0 text-center ">Create Your Account</h4>
             </div>
             <div class="card-body p-4">
                 <form method="post">
@@ -60,8 +65,10 @@
                                 placeholder="Confirm your password">
                         </div>
                     </div>
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-primary btn-lg" name="createAcount">Create Acount</button>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <button class="btn btn-secondary"><a class="text-decoration-none text-light"
+                                href="./index.php">Back Home</a></button>
+                        <button type="submit" class="btn btn-primary " name="createAcount">Create Acount</button>
                     </div>
                     <div class="text-center mt-3">
                         <p>Already have an Acount ? </p>

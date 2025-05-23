@@ -5,7 +5,7 @@ require_once __DIR__ . "/../../controller/Empoyeecontroller.php";
 require_once __DIR__ . "/../../controller/Productcontroller.php";
 $employee = new EmployeeController();
 $id = $_GET['id'];
-$item = $employee->GetEmployeeOne($id); 
+$item = $employee->GetEmployeeOne($id);
 include "../pages/header.php";
 ?>
 <div class="container py-4">

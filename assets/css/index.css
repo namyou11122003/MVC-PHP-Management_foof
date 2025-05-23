@@ -1,0 +1,226 @@
+:root {
+  /* font-size: 62.5%; */
+  --primary-color: rgb(77, 204, 106);
+  --secondary-color: rgb(58, 175, 25);
+}
+
+/* .btn-login {
+            outline: none;
+            border: none;
+        } */
+
+/* start banner  */
+.hero {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url("./promo-3.png");
+  background-size: cover;
+  background-position: center;
+  height: 300px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.hero {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url("./pizza.png");
+  background-size: cover;
+  background-position: center;
+  height: 300px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.hero-content h2 {
+  font-size: 36px;
+  margin-bottom: 15px;
+}
+
+.hero-content p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.btn-green {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.btn-green:hover {
+  background-color: var(--secondary-color);
+}
+
+/* end of banner  */
+/* menu plural  */
+.menu-modern {
+  padding: 3rem;
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 350px));
+}
+
+.promot {
+  color: black;
+  font-size: 2rem;
+  z-index: 2;
+}
+
+.txt {
+  margin-top: 1rem;
+  z-index: 2;
+  color: grey;
+  font-size: 1rem;
+}
+
+.food-modern {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 0 2rem;
+  width: 300px;
+  height: 500px;
+  box-shadow: 1px 1px 1px 1px rgb(185, 182, 182);
+  position: relative;
+}
+
+.image {
+  width: 200px;
+  height: 200px;
+  position: relative;
+  z-index: 2;
+  margin-top: 2rem;
+}
+
+.image > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.food-modern::after {
+  content: "";
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+  background-color: rgb(236, 154, 12);
+  clip-path: polygon(0 85%, 100% 55%, 100% 100%, 0% 100%);
+  transition: clip-path 0.2s ease-in-out;
+}
+
+.food-modern:hover::after {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+}
+
+.food-modern:hover > .promot,
+.food-modern:hover > p {
+  color: white;
+}
+
+/* end of menu plural  */
+.menu-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+}
+
+.menu-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.img {
+  padding: 5px;
+  margin: 0 auto;
+  /* width: 230px; */
+  height: 200px;
+  object-fit: cover;
+}
+
+.price {
+  color: #ff7700;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.category-badge {
+  background-color: #f8f9fa;
+  color: #6c757d;
+  font-size: 0.8rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 15px;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+.add-to-cart-btn {
+  background-color: #3498db;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #2980b9;
+}
+
+@media (max-width: 767px) {
+  .card-img-top {
+    height: 150px;
+  }
+}
+
+.btn-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding: 1rem;
+}
+
+/* Make sure the flex item (button) shows from beginning not centre */
+@media screen and (max-width: 900px) {
+  .btn-container {
+    justify-content: flex-start;
+  }
+}
+
+/* Hide Scroll bar */
+.btn-container::-webkit-scrollbar {
+  display: none;
+}
+
+.btn-container > button {
+  flex: 0 0 auto;
+  border: none;
+  /* outline: none; */
+  /* outline: 0.1px solid gray; */
+  background-color: transparent;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 0.5rem 2rem;
+  border-radius: 10px;
+  color: black;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.btn-container > button:focus {
+  background-color: var(--primary-color);
+  box-shadow: 0 0 15px 0px rgb(235, 235, 235);
+}

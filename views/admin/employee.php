@@ -1,12 +1,14 @@
 <?php
 session_start();
 
-// Check if the user is logged in by verifying the session variable
-if (!isset($_SESSION['gmail'])) {
-    // Redirect to login page if not logged in
-    header('Location: ../../index.php');
-    exit();
-}
+
+
+// // Check if the user is logged in by verifying the session variable
+// if (!isset($_SESSION['gmail'])) {
+//     // Redirect to login page if not logged in
+//     header('Location: ../../index.php');
+//     exit();
+// }
 include "../pages/header.php";
 require_once __DIR__ . "/../../controller/Empoyeecontroller.php";
 include_once("../../handle/Model.php");
@@ -49,7 +51,7 @@ include_once("../../handle/Model.php");
                                         <?php
                                         // Include the form file but remove header/footer if possible 
                                         // if already included on main page to avoid duplicate HTML tags 
-                                        include "../components/operationEmployee.php";
+                                        include "../Employees/addemployees.php";
                                         ?>
 
                                         <?php
@@ -97,7 +99,7 @@ include_once("../../handle/Model.php");
 
                                             <!-- end of edite  -->
 
-                                            <a href="../components/Edit.php?id=<?php echo $employee['id']; ?>"
+                                            <a href="../Employees/updateemployee.php?id=<?php echo $employee['id']; ?>"
                                                 class="btn btn-info btn-sm">
                                                 <i class="bi bi-pencil "></i>Update</a>
                                             <style>
@@ -107,18 +109,11 @@ include_once("../../handle/Model.php");
                                                 }
                                             </style>
 
-
-
-
-
-
-
-
                                             <a onclick="return confirm('Are you sure to delete this product ?');"
-                                                href="../components/delete_employee.php?id=<?php echo $employee['id']; ?>"
+                                                href="../Employees/deleteemployee.php?id=<?php echo $employee['id']; ?>"
                                                 class="btn btn-danger btn-sm">
                                                 <i class="bi bi-trash3"></i>Delete</a>
-
+                                            <!-- <a href="../Employees/deleteemployee.php"></a> -->
 
                                             <button class="btn btn-warning view-btn"
                                                 data-id="<?php echo $employee['id']; ?>"><i

@@ -9,11 +9,17 @@
     }
 </style>
 
+<?php ob_start();
+// global $_SESSION['employee_photo'];
+// session_start()
+
+?>
 <div id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark ">
-    <div class="d-flex justify-content-between align-items-center p-3 border-bottom ">
+    <div class="d-flex flex-column justify-content-between align-items-center p-3 border-bottom ">
         <img class="employee_logo"
             src="./images/<?php echo isset($_SESSION['employee_photo']) ? $_SESSION['employee_photo'] : " "; ?>"
             alt="Photo Of Employee">
+        <p><?php echo $_SESSION['firstname'] . " " . $_SESSION['lasttname'] ?></p>
     </div>
     <div class="position-sticky top-0 start-0 pt-3 ">
         <ul class="nav flex-column">
@@ -52,20 +58,15 @@
 
         <hr class="text-secondary">
 
-        <ul class="nav flex-column ">
-            <li class="nav-item ">
-                <a class="nav-link" href="#">
-                    <i class="bi bi-gear me-2 nav-icon"></i>
-                    <span class="nav-text">Settings</span>
-                </a>
-            </li>
+        <ul class="nav flex-column  ">
+
             <li class="nav-item">
-                <a class="nav-link" href="../../logout.php">
+                <a class="nav-link" href="./logout.php">
                     <i class="bi bi-box-arrow-left me-2 nav-icon"></i>
                     <span class="nav-text">Sign Out</span>
                 </a>
             </li>
-            
+
         </ul>
     </div>
 </div>

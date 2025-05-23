@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Check if the user is logged in by verifying the session variable
+// // Check if the user is logged in by verifying the session variable
 if (!isset($_SESSION['gmail'])) {
     // Redirect to login page if not logged in
     header('Location: ../../index.php');
@@ -17,11 +17,11 @@ $selectproduct = new Productcontroller();
         <!-- Sidebar -->
         <?php include '../pages/navbar.php'; ?>
         <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <?php include '../pages/search.php'; ?>
+            <!-- <?php include '../pages/search.php'; ?> -->
             <div class="container mt-4">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h1>Products</h1>
-                 
+
 
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                         data-bs-target="#addEmployeeModal">
@@ -34,7 +34,7 @@ $selectproduct = new Productcontroller();
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title text-dark" id="addEmployeeModalLabel">Add New Staff</h5>
+                                    <h5 class="modal-title text-dark" id="addEmployeeModalLabel">Add New Products</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                                     </button>
 
@@ -43,7 +43,7 @@ $selectproduct = new Productcontroller();
                                     <?php
                                     // Include the form file but remove header/footer if possible 
                                     // if already included on main page to avoid duplicate HTML tags 
-                                    include "../components/product_operation.php";
+                                    include "../products/addproducts.php";
                                     ?>
 
                                     <?php
@@ -68,27 +68,32 @@ $selectproduct = new Productcontroller();
                             </thead>
                             <?php
                             $products = $selectproduct->getProductall();
+
                             foreach ($products as $product) {
                                 ?>
                                 <tbody>
                                     <tr>
                                         <td><?php echo $product['product_id']; ?></td>
                                         <td><?php echo $product['product_name']; ?></td>
-                                        <td><?php echo $product['product_price'] . "​ ​​៛"; ?> </td>
+                                        <td><?php echo $product['product_price'] . "​​៛"; ?> </td>
                                         <td>
                                             <img class="rounded-circle me-2 object-fit-cover" width="40" height="40"
-                                                src="../components/product/<?php echo $product['product_image']; ?>" alt="">
+                                                src="./products/<?php echo $product['product_image']; ?>" alt="">
+                                            <!-- <img src="../components/product/67fd1e6669560.jpg" alt=""> -->
                                         </td>
+
                                         <td>
-                                            <a href="../components/viewsDetail.php?id=<?php echo $product['product_id']; ?>"
+
+                                            <a href="../products/viewproducts.php?id=<?php echo $product['product_id']; ?>"
                                                 class="btn btn-info btn-sm "><i class="bi bi-eye m-1"></i>view</a>
                                             <a class="btn btn-warning btn-sm "
-                                                href="../components/Edite_product.php?id=<?php echo $product['product_id']; ?>"><i
-                                                    class="bi bi-pencil m-1 "></i>Edit</a>
+                                                href="../products/updateproducts.php?id=<?php echo $product['product_id']; ?>"><i
+                                                    class="bi bi-pencil m-1 "></i>Updae</a>
                                             <a onclick="return confirm('Are you sure to delete this product ?id=<?php echo $product['product_id']; ?>')"
                                                 class="btn btn-danger text-decoration-none btn-sm"
-                                                href="../components/delete_product.php?id=<?php echo $product['product_id']; ?>"><i
+                                                href="../products/deleteproduct.php?id=<?php echo $product['product_id']; ?>"><i
                                                     class="bi bi-trash3 m-1"></i> Delete</a>
+
                                         </td>
                                     </tr>
                                 </tbody>

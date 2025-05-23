@@ -7,7 +7,7 @@ $connection = new mysqli('localhost', 'root', '', 'mangement_food');
 if ($connection->connect_error) {
     die("Connection failed: " . $connection->connect_error);
 }
-
+$error_message = "Incorrect email or password.";
 
 if (isset($_POST['gmail']) && isset($_POST['password'])) {
     $gmail = $_POST['gmail'];
@@ -20,6 +20,8 @@ if (isset($_POST['gmail']) && isset($_POST['password'])) {
         if ($row['Emp_password']) {
             $_SESSION['gmail'] = $row['Emp_gmail'];
             $_SESSION['employee_photo'] = $row['emp_image'];
+            $_SESSION['firstname'] = $row['emp_firstname'];
+            $_SESSION['lasttname'] = $row['emp_lastname'];
             header('Location: ./views/admin/index.php');
             exit();
 
@@ -38,9 +40,10 @@ if (isset($_POST['gmail']) && isset($_POST['password'])) {
             header('Location: ./index.php');
             exit();
         }
+    } else {
+        $error_message = "Incorrect email or password.";
+
     }
-    // 3. If login fails
-    echo "Invalid email or password.";
 }
 ?>
 
@@ -64,7 +67,7 @@ if (isset($_POST['gmail']) && isset($_POST['password'])) {
 
 
         .auth-container {
-            margin-top: 15rem;
+            margin-top: 10rem;
             margin-bottom: 2rem;
         }
 
@@ -112,6 +115,7 @@ if (isset($_POST['gmail']) && isset($_POST['password'])) {
             <!-- Login Form -->
             <div class="col-md-5 mb-4" id="loginForm">
                 <div class="card">
+
                     <div class="card-header bg-primary">
                         <h4 class="mb-0">Login to Your Account</h4>
                     </div>
@@ -138,7 +142,8 @@ if (isset($_POST['gmail']) && isset($_POST['password'])) {
                                 <label class="form-check-label" for="rememberMe">Remember me</label>
                             </div>
                             <div class="d-flex justify-content-between align-items-center">
-                                <button class="btn btn-secondary" ><a class="text-decoration-none text-light" href="./index.php">Back Home</a></button>
+                                <button class="btn btn-secondary"><a class="text-decoration-none text-light"
+                                        href="./index.php">Back Home</a></button>
                                 <button type="submit" class="btn btn-primary btn-lg">Login</button>
                             </div>
                             <div class="text-center mt-3">

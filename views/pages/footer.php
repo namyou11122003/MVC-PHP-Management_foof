@@ -73,9 +73,31 @@
         viewButtons.forEach(button => {
             button.addEventListener('click', function () {
                 const empId = this.getAttribute('data-id');
-
+                // ../Employees/viewEmployees.php
                 // Fetch detail via AJAX
                 fetch(`../components/viewDetailEmployee.php?id=${empId}`)
+                    .then(response => response.text())
+                    .then(data => {
+                        document.getElementById('modalContent').innerHTML = data;
+                        // Show modal
+                        const modal = new bootstrap.Modal(document.getElementById('viewModal'));
+                        modal.show();
+                    })
+                    .catch(error => {
+                        console.error('Error fetching employee details:', error);
+                        document.getElementById('modalContent').innerHTML = 'Error loading data.';
+                    });
+            });
+        });
+
+
+        const view_btn = document.querySelectorAll(".view_btn");
+        view_btn.forEach(button => {
+            button.addEventListener('click', function () {
+                const empId = this.getAttribute('data-id');
+
+                // Fetch detail via AJAX
+                fetch(`../components/viewDetail.php?id=${empId}`)
                     .then(response => response.text())
                     .then(data => {
                         document.getElementById('modalContent').innerHTML = data;
